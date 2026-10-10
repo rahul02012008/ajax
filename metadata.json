@@ -1,6 +1,6 @@
 {
-  "name": "KURA — Minimalist Interior Architecture & Design Journal",
-  "description": "A curated architectural publication featuring 10 in-depth articles on minimalist interior design, tactile materials, spatial silence, and warm reductionist aesthetics.",
+  "name": "KURA — Warm Minimalist Architecture & Spatial Design",
+  "description": "Explore KURA, a curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials for tranquil interior living.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

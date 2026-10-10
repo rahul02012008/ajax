@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { ARTICLES, Article, MaterialColor } from './data/articles';
 import { Header } from './components/Header';
 import { HeroFeatured } from './components/HeroFeatured';
@@ -9,11 +9,14 @@ import { LightboxModal } from './components/LightboxModal';
 import { ReadingListDrawer } from './components/ReadingListDrawer';
 import { ColophonModal } from './components/ColophonModal';
 import { Footer } from './components/Footer';
+import { SEOHead } from './components/SEOHead';
 
-const BOOKMARKS_STORAGE_KEY = 'kura_bookmarked_articles_v1';
+const BOOKMARKS_STORAGE_KEY = 'kura_bookmarked_articles_v2';
 
 export default function App() {
-  const [activeArticleId, setActiveArticleId] = useState<string | null>(null);
+  const [currentPath, setCurrentPath] = useState<string>(() => {
+    return window.location.pathname || '/';
+  });
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
@@ -34,6 +37,16 @@ export default function App() {
     credit: '',
   });
 
+  // Client-side SEO routing: listen to popstate
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || '/');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Load bookmarks on mount
   useEffect(() => {
     try {
@@ -46,27 +59,16 @@ export default function App() {
     }
   }, []);
 
-  // Sync hash routing for shareable URLs and browser navigation
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash.startsWith('#/article/')) {
-        const id = hash.replace('#/article/', '');
-        const exists = ARTICLES.find((a) => a.id === id || a.slug === id);
-        if (exists) {
-          setActiveArticleId(exists.id);
-        }
-      } else {
-        setActiveArticleId(null);
-      }
-    };
-
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+  // Programmatic navigation function that updates URL and history
+  const navigate = useCallback((path: string) => {
+    if (path !== window.location.pathname) {
+      window.history.pushState(null, '', path);
+    }
+    setCurrentPath(path);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Save bookmarks
+  // Toggle bookmark handler
   const toggleBookmark = (id: string) => {
     setBookmarkedIds((prev) => {
       const next = prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id];
@@ -88,18 +90,6 @@ export default function App() {
     }
   };
 
-  const handleReadArticle = (id: string) => {
-    setActiveArticleId(id);
-    window.location.hash = `#/article/${id}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBackToHome = () => {
-    setActiveArticleId(null);
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const handleOpenLightbox = (
     imageUrl: string,
     caption: string,
@@ -119,7 +109,13 @@ export default function App() {
     setLightbox((prev) => ({ ...prev, isOpen: false }));
   };
 
-  // Filter and search articles
+  // Find active article based on current path
+  const currentArticle = useMemo(() => {
+    if (currentPath === '/' || currentPath === '') return null;
+    return ARTICLES.find((a) => a.path === currentPath || a.slug === currentPath.replace('/', '')) || null;
+  }, [currentPath]);
+
+  // Filter and search articles for homepage
   const filteredArticles = useMemo(() => {
     return ARTICLES.filter((article) => {
       const matchesCategory =
@@ -134,11 +130,11 @@ export default function App() {
       const matchSubtitle = article.subtitle.toLowerCase().includes(q);
       const matchAuthor = article.author.name.toLowerCase().includes(q);
       const matchCategory = article.category.toLowerCase().includes(q);
+      const matchKeywords =
+        article.mainKeyword.toLowerCase().includes(q) ||
+        article.relatedKeywords.some((k) => k.toLowerCase().includes(q));
       const matchMaterials = article.palette.some(
         (p) => p.name.toLowerCase().includes(q) || p.material.toLowerCase().includes(q)
-      );
-      const matchChapters = article.chapters.some((c) =>
-        c.title.toLowerCase().includes(q) || c.content.some((p) => p.toLowerCase().includes(q))
       );
 
       return (
@@ -146,8 +142,8 @@ export default function App() {
         matchSubtitle ||
         matchAuthor ||
         matchCategory ||
-        matchMaterials ||
-        matchChapters
+        matchKeywords ||
+        matchMaterials
       );
     });
   }, [activeCategory, searchQuery]);
@@ -164,53 +160,66 @@ export default function App() {
     return ARTICLES.filter((a) => bookmarkedIds.includes(a.id));
   }, [bookmarkedIds]);
 
-  // Current active article if in reader mode
-  const currentArticle = useMemo(() => {
-    if (!activeArticleId) return null;
-    return ARTICLES.find((a) => a.id === activeArticleId) || null;
-  }, [activeArticleId]);
-
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#191716] flex flex-col font-sans selection:bg-[#E8DFD5] selection:text-[#191716]">
+      {/* Dynamic SEO Head & Structured Data Manager */}
+      <SEOHead article={currentArticle} path={currentPath} />
+
       {/* Top Bar Contract Navigation */}
       <Header
         currentCategory={activeCategory}
         onSelectCategory={(cat) => {
           setActiveCategory(cat);
           setSearchQuery('');
+          navigate('/');
         }}
         bookmarksCount={bookmarkedIds.length}
         onOpenBookmarks={() => setIsReadingListOpen(true)}
         onOpenSearch={() => {
-          if (activeArticleId) {
-            handleBackToHome();
+          if (currentArticle) {
+            navigate('/');
           }
           const inputEl = document.querySelector('input[type="text"]') as HTMLInputElement;
           if (inputEl) inputEl.focus();
         }}
         onOpenColophon={() => setIsColophonOpen(true)}
-        activeArticleId={activeArticleId}
-        onBackToHome={handleBackToHome}
+        activePath={currentPath}
+        onNavigateHome={() => navigate('/')}
       />
 
-      {/* Reader View vs Journal Index View */}
+      {/* Dedicated Article Page vs Homepage View */}
       {currentArticle ? (
         <ArticleReader
           article={currentArticle}
           allArticles={ARTICLES}
-          onBack={handleBackToHome}
-          onReadArticle={handleReadArticle}
+          onBack={() => navigate('/')}
+          onNavigate={navigate}
           isBookmarked={bookmarkedIds.includes(currentArticle.id)}
           onToggleBookmark={toggleBookmark}
           onOpenLightbox={handleOpenLightbox}
         />
       ) : (
         <main className="flex-1">
-          {/* Cover Monograph (Hero Section with visual rank) only on unfiltered home */}
+          {/* Main Homepage Header Banner: Exactly ONE h1 on Homepage (SEO Rule) */}
+          <div className="border-b border-[#E7E2DA] bg-[#FAF8F5] pt-10 pb-6">
+            <div className="max-w-7xl mx-auto px-6">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#8C6D53] block mb-2">
+                Editorial Review · Vol. IV
+              </span>
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-[44px] leading-tight font-medium text-[#191716] tracking-tight text-balance">
+                Warm Minimalist Architecture & Spatial Design
+              </h1>
+              <p className="text-sm lg:text-base text-[#655F58] mt-2 max-w-2xl font-light leading-relaxed">
+                Explore KURA, a curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials for tranquil interior living.
+              </p>
+            </div>
+          </div>
+
+          {/* Cover Monograph (Hero Section) on unfiltered home */}
           {activeCategory === 'All' && !searchQuery.trim() && (
             <HeroFeatured
               article={leadArticle}
-              onReadArticle={handleReadArticle}
+              onNavigate={navigate}
               isBookmarked={bookmarkedIds.includes(leadArticle.id)}
               onToggleBookmark={toggleBookmark}
               onOpenLightbox={handleOpenLightbox}
@@ -232,7 +241,7 @@ export default function App() {
           <section className="py-12 lg:py-16">
             <div className="max-w-7xl mx-auto px-6">
               
-              {/* Section Header */}
+              {/* Section Header (h2) */}
               <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#E7E2DA]">
                 <div>
                   <h2 className="font-serif text-2xl lg:text-3xl font-medium text-[#191716]">
@@ -243,7 +252,7 @@ export default function App() {
                       : `${activeCategory} Studies`}
                   </h2>
                   <p className="text-xs text-[#7A746C] mt-1 font-light">
-                    Essays on spatial geometry, tactile materials, and the reduction of visual noise.
+                    Essays on spatial reductionism, tactile materials, and the elimination of visual noise.
                   </p>
                 </div>
 
@@ -266,7 +275,7 @@ export default function App() {
                       setSearchQuery('');
                       setActiveCategory('All');
                     }}
-                    className="px-5 py-2.5 bg-[#191716] text-[#FAF8F5] text-xs uppercase tracking-wider font-medium rounded-sm hover:bg-[#8C6D53] transition-colors"
+                    className="px-5 py-2.5 bg-[#191716] text-[#FAF8F5] text-xs uppercase tracking-wider font-medium rounded-sm hover:bg-[#8C6D53] transition-colors cursor-pointer"
                   >
                     Reset All Filters
                   </button>
@@ -274,7 +283,6 @@ export default function App() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {gridArticles.map((article, index) => {
-                    // Global index offset
                     const realIndex =
                       activeCategory === 'All' && !searchQuery.trim()
                         ? index + 1
@@ -284,7 +292,7 @@ export default function App() {
                         key={article.id}
                         article={article}
                         index={realIndex}
-                        onReadArticle={handleReadArticle}
+                        onNavigate={navigate}
                         isBookmarked={bookmarkedIds.includes(article.id)}
                         onToggleBookmark={toggleBookmark}
                         onOpenLightbox={handleOpenLightbox}
@@ -297,7 +305,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* Architectural Quote Interlude (Per Section Rhythm & Density Orchestration) */}
+          {/* Architectural Quote Interlude */}
           <section className="py-16 bg-[#F2ECE3] border-y border-[#E4DDD2]">
             <div className="max-w-4xl mx-auto px-6 text-center">
               <span className="text-xs uppercase tracking-[0.2em] font-semibold text-[#8C6D53] block mb-4">
@@ -319,8 +327,9 @@ export default function App() {
         onSelectCategory={(cat) => {
           setActiveCategory(cat);
           setSearchQuery('');
-          handleBackToHome();
+          navigate('/');
         }}
+        onNavigate={navigate}
         onOpenColophon={() => setIsColophonOpen(true)}
       />
 
@@ -339,7 +348,7 @@ export default function App() {
         isOpen={isReadingListOpen}
         onClose={() => setIsReadingListOpen(false)}
         savedArticles={savedArticlesList}
-        onReadArticle={handleReadArticle}
+        onNavigate={navigate}
         onRemoveBookmark={toggleBookmark}
         onClearAll={clearAllBookmarks}
       />

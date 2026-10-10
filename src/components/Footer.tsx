@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
+import { ARTICLES } from '../data/articles';
 
 interface FooterProps {
   onSelectCategory: (cat: string) => void;
+  onNavigate: (path: string) => void;
   onOpenColophon: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenColophon }) => {
+export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onNavigate, onOpenColophon }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -20,6 +22,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenColophon
     }
   };
 
+  const pillarArticles = ARTICLES.slice(0, 3);
+
   return (
     <footer className="border-t border-[#E7E2DA] bg-[#F5EFE6]/60 pt-16 pb-12 text-[#4E4842]">
       <div className="max-w-7xl mx-auto px-6">
@@ -27,65 +31,43 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenColophon
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-[#E5DFD5]">
           
-          {/* Brand & Editorial Ethos (5 cols) */}
-          <div className="md:col-span-5">
+          {/* Brand & Editorial Ethos (4 cols) */}
+          <div className="md:col-span-4">
             <span className="font-serif text-2xl tracking-[0.16em] font-medium text-[#191716] block mb-4">
               K U R A
             </span>
             <p className="text-sm text-[#655F58] leading-relaxed max-w-sm mb-6 font-light">
-              A curated quarterly journal examining the tectonic boundaries of minimalist interior design, monastic tranquility, and warm spatial reductionism.
+              A curated quarterly journal examining the tectonic boundaries of warm minimalist architecture, spatial reductionism, and tactile materials.
             </p>
             <div className="text-xs tracking-wider uppercase text-[#8C6D53] font-semibold">
-              Issue IV · Spring & Autumn Compendium
+              Issue IV · Dedicated Spatial Studies
             </div>
           </div>
 
-          {/* Nav Categories (3 cols) */}
-          <div className="md:col-span-3">
+          {/* Core Pillar Studies: Descriptive Context-Specific Internal Links (SEO Requirement) (4 cols) */}
+          <div className="md:col-span-4">
             <div className="text-xs uppercase tracking-widest font-semibold text-[#191716] mb-4">
-              Disciplines
+              Key Monographies
             </div>
-            <ul className="space-y-2.5 text-xs text-[#655F58]">
-              <li>
-                <button
-                  onClick={() => onSelectCategory('Architecture')}
-                  className="hover:text-[#191716] transition-colors cursor-pointer"
-                >
-                  Architecture & Volume
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('Materials')}
-                  className="hover:text-[#191716] transition-colors cursor-pointer"
-                >
-                  Mineral & Tactile Materials
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('Millwork')}
-                  className="hover:text-[#191716] transition-colors cursor-pointer"
-                >
-                  Flush Joinery & Millwork
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('Lighting')}
-                  className="hover:text-[#191716] transition-colors cursor-pointer"
-                >
-                  Penumbra & Aperture Lighting
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('Philosophy')}
-                  className="hover:text-[#191716] transition-colors cursor-pointer"
-                >
-                  Wabi-Sabi & Rams Philosophy
-                </button>
-              </li>
+            <ul className="space-y-3 text-xs text-[#655F58]">
+              {pillarArticles.map((art) => (
+                <li key={art.id}>
+                  <a
+                    href={art.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate(art.path);
+                    }}
+                    className="hover:text-[#191716] transition-colors inline-flex items-center gap-1.5 group"
+                    title={art.seoTitle}
+                  >
+                    <span className="text-[#8C6D53] group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span className="underline decoration-[#D4CCC0] underline-offset-4 group-hover:decoration-[#191716]">
+                      {art.descriptiveAnchor}
+                    </span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -148,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onOpenColophon
             </button>
             <span>·</span>
             <span className="font-mono text-[11px] text-[#8C6D53]">
-              Ready for Vercel
+              Vercel Optimized & AEO Ready
             </span>
           </div>
         </div>

@@ -9,15 +9,14 @@ import {
   Volume2,
   Layers,
   ArrowRight,
-  ZoomIn,
-  ZoomOut
+  HelpCircle
 } from 'lucide-react';
 
 interface ArticleReaderProps {
   article: Article;
   allArticles: Article[];
   onBack: () => void;
-  onReadArticle: (id: string) => void;
+  onNavigate: (path: string) => void;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
   onOpenLightbox: (imageUrl: string, caption: string, credit: string, palette: Article['palette']) => void;
@@ -27,7 +26,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
   article,
   allArticles,
   onBack,
-  onReadArticle,
+  onNavigate,
   isBookmarked,
   onToggleBookmark,
   onOpenLightbox,
@@ -90,13 +89,17 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
       {/* Reader Secondary Utility Bar */}
       <div className="sticky top-20 z-30 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E2DA] py-3">
         <div className="max-w-4xl mx-auto px-6 flex items-center justify-between">
-          <button
-            onClick={onBack}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onBack();
+            }}
             className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-[#655F58] hover:text-[#191716] font-medium transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Journal</span>
-          </button>
+            <span>Back to Journal Index</span>
+          </a>
 
           <div className="flex items-center gap-3">
             {/* Font Size Toggle */}
@@ -137,23 +140,41 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
       {/* Article Header & Typography Lead */}
       <header className="max-w-4xl mx-auto px-6 pt-12 pb-8">
         
+        {/* SEO Breadcrumb Navigation */}
+        <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-2 text-xs text-[#7A746C]">
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onBack();
+            }}
+            className="hover:text-[#191716] transition-colors"
+          >
+            Home
+          </a>
+          <span aria-hidden="true" className="text-[#C5BEB5]">/</span>
+          <span className="uppercase tracking-wider font-medium text-[#8C6D53]">{article.category}</span>
+          <span aria-hidden="true" className="text-[#C5BEB5]">/</span>
+          <span aria-current="page" className="text-[#191716] font-medium truncate max-w-[280px]">
+            {article.title}
+          </span>
+        </nav>
+
         {/* Unboxed Metadata (Zero-Pill Discipline) */}
         <div className="flex items-center gap-2 text-xs text-[#7A746C] mb-4">
           <span className="font-semibold text-[#8C6D53] tracking-widest uppercase">{article.kicker}</span>
-          <span aria-hidden="true" className="text-[#CCC4B9]">/</span>
-          <span className="uppercase tracking-wider font-medium text-[#191716]">{article.category}</span>
           <span aria-hidden="true" className="text-[#CCC4B9]">·</span>
           <span>{article.readTime}</span>
           <span aria-hidden="true" className="text-[#CCC4B9]">·</span>
           <span>{article.date}</span>
         </div>
 
-        {/* Headline */}
+        {/* The Single Exact <h1> for this Page */}
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] font-normal text-[#191716] tracking-tight mb-6 text-balance">
           {article.title}
         </h1>
 
-        {/* Subtitle */}
+        {/* Subtitle / Deck */}
         <p className="text-lg lg:text-xl text-[#4E4842] leading-relaxed font-light mb-8 max-w-3xl">
           {article.subtitle}
         </p>
@@ -177,13 +198,17 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
 
       </header>
 
-      {/* Featured Full-Width Photographic Hero */}
+      {/* Featured Full-Width Photographic Hero (Responsive & CLS-optimized) */}
       <div className="max-w-5xl mx-auto px-6 mb-12">
         <div className="relative group bg-[#EFE9DF] border border-[#DDD6CC] rounded-sm overflow-hidden aspect-[16/9] shadow-xs">
           {!heroImgFailed ? (
             <img
               src={article.featuredImage.url}
               alt={article.featuredImage.alt}
+              width={article.featuredImage.width || 1600}
+              height={article.featuredImage.height || 900}
+              loading="eager"
+              decoding="async"
               referrerPolicy="no-referrer"
               onError={() => setHeroImgFailed(true)}
               className="w-full h-full object-cover"
@@ -211,7 +236,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
           </button>
         </div>
 
-        {/* Elegant Figure Caption (Per editorial reference) */}
+        {/* Elegant Figure Caption with EXIF/Architect credit */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-3 px-1 text-xs">
           <p className="font-serif italic text-[#655F58]">
             {article.featuredImage.caption}
@@ -225,14 +250,24 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
       {/* Main Reading Column (65–75ch measure per constitution) */}
       <div className="max-w-2xl mx-auto px-6">
         
-        {/* Editorial Drop Cap Opening Chapter */}
+        {/* Chapters: Question-and-Answer Subheadings (AEO Requirement) */}
         {article.chapters.map((chapter, idx) => (
           <section key={chapter.id} className="mb-14">
             
-            {/* Natural Editorial Numbering Heading */}
-            <h2 className="font-serif text-2xl lg:text-[26px] font-medium text-[#191716] mb-5 tracking-tight">
-              {String(idx + 1).padStart(2, '0')}. {chapter.title}
+            {/* Natural Question Subheading (h2) */}
+            <h2 className="font-serif text-2xl lg:text-[28px] font-medium text-[#191716] mb-3 tracking-tight">
+              {chapter.title}
             </h2>
+
+            {/* Direct Concise Answer Sentence (AEO / Answer Engine Optimization Snippet) */}
+            {chapter.directAnswer && (
+              <div className="p-4 bg-[#F2ECE3] border-l-2 border-[#8C6D53] text-[#191716] font-medium text-sm leading-relaxed mb-6 rounded-xs">
+                <span className="text-xs uppercase tracking-wider text-[#8C6D53] block mb-1 font-semibold">
+                  Key Takeaway
+                </span>
+                {chapter.directAnswer}
+              </div>
+            )}
 
             {/* Paragraphs with optional drop cap on very first paragraph */}
             {chapter.content.map((paragraph, pIdx) => {
@@ -271,7 +306,11 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
                 <div className="aspect-[16/10] overflow-hidden">
                   <img
                     src={chapter.imageDetail.url}
-                    alt={chapter.imageDetail.caption}
+                    alt={chapter.imageDetail.alt || chapter.imageDetail.caption}
+                    width={chapter.imageDetail.width || 1200}
+                    height={chapter.imageDetail.height || 800}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover"
                   />
@@ -292,7 +331,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
           </section>
         ))}
 
-        {/* Key Takeaway Monograph Box */}
+        {/* Key Architectural Principle Box */}
         <div className="p-8 bg-[#F3EDE3] border-l-2 border-[#8C6D53] rounded-sm my-12">
           <div className="text-xs uppercase tracking-widest font-semibold text-[#8C6D53] mb-2">
             Architectural Principle
@@ -301,6 +340,40 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
             {article.keyTakeaway}
           </p>
         </div>
+
+        {/* AEO Frequently Asked Questions (Structured for Conversational Engines) */}
+        {article.faq && article.faq.length > 0 && (
+          <section className="my-14 border-t border-[#EAE4DC] pt-10">
+            <div className="flex items-center gap-2 mb-2">
+              <HelpCircle className="w-4 h-4 text-[#8C6D53]" />
+              <h2 className="font-serif text-2xl font-medium text-[#191716]">
+                Frequently Asked Questions on {article.mainKeyword}
+              </h2>
+            </div>
+            <p className="text-xs text-[#7A746C] mb-8">
+              Authoritative answers to common architectural and material inquiries.
+            </p>
+
+            <div className="space-y-6">
+              {article.faq.map((item, fIdx) => (
+                <div
+                  key={fIdx}
+                  className="p-5 bg-[#FAF8F5] border border-[#E7E2DA] rounded-sm"
+                >
+                  <h3 className="font-serif text-lg font-medium text-[#191716] mb-2">
+                    {item.question}
+                  </h3>
+                  <p className="text-sm text-[#191716] font-medium mb-2 leading-relaxed bg-[#F4EFE6] p-3 rounded-xs border-l-2 border-[#8C6D53]">
+                    {item.quickAnswer}
+                  </p>
+                  <p className="text-sm text-[#59534C] leading-relaxed font-light">
+                    {item.fullAnswer}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Room Material Palette Explorer */}
         <section className="my-14 border-t border-[#EAE4DC] pt-10">
@@ -345,7 +418,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
           </div>
         </section>
 
-        {/* Architectural Technical Specifications (Pattern B Accession Grid) */}
+        {/* Architectural Technical Specifications */}
         <section className="my-14 border-t border-[#EAE4DC] pt-10">
           <h3 className="text-xs uppercase tracking-widest font-semibold text-[#191716] mb-6">
             Spatial Specifications
@@ -362,41 +435,80 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
 
       </div>
 
-      {/* Related Articles Footer Section */}
+      {/* Related Articles Footer Section (Descriptive Anchor Texts for SEO) */}
       <section className="max-w-4xl mx-auto px-6 mt-16 pt-12 border-t border-[#E7E2DA]">
         <div className="flex items-center justify-between mb-8">
           <h3 className="font-serif text-2xl font-medium text-[#191716]">
-            Further Inquiries
+            Further Spatial Inquiries
           </h3>
-          <button
-            onClick={onBack}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onBack();
+            }}
             className="text-xs uppercase tracking-wider text-[#8C6D53] hover:text-[#191716] font-medium"
           >
             Index View →
-          </button>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {relatedArticles.map((rel) => (
             <div
               key={rel.id}
-              onClick={() => onReadArticle(rel.id)}
-              className="group cursor-pointer p-5 border border-[#E7E2DA] hover:border-[#8C6D53] rounded-sm bg-[#FAF8F5] transition-all"
+              className="group p-5 border border-[#E7E2DA] hover:border-[#8C6D53] rounded-sm bg-[#FAF8F5] transition-all flex flex-col justify-between"
             >
-              <div className="aspect-[16/10] bg-[#EFE9DF] rounded-xs overflow-hidden mb-4">
-                <img
-                  src={rel.featuredImage.url}
-                  alt={rel.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div>
+                <a
+                  href={rel.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(rel.path);
+                  }}
+                  className="aspect-[16/10] bg-[#EFE9DF] rounded-xs overflow-hidden mb-4 block"
+                >
+                  <img
+                    src={rel.featuredImage.url}
+                    alt={rel.featuredImage.alt}
+                    width={rel.featuredImage.width || 1200}
+                    height={rel.featuredImage.height || 800}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </a>
+                <div className="text-[11px] uppercase tracking-wider text-[#8C6D53] font-semibold mb-1">
+                  {rel.category} · {rel.readTime}
+                </div>
+                <h4 className="font-serif text-lg text-[#191716] group-hover:text-[#8C6D53] transition-colors leading-snug mb-3">
+                  <a
+                    href={rel.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate(rel.path);
+                    }}
+                  >
+                    {rel.title}
+                  </a>
+                </h4>
               </div>
-              <div className="text-[11px] uppercase tracking-wider text-[#8C6D53] font-semibold mb-1">
-                {rel.category} · {rel.readTime}
+
+              {/* Context-Specific Anchor Text Link */}
+              <div className="border-t border-[#F0EAE2] pt-3 mt-2">
+                <a
+                  href={rel.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(rel.path);
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#191716] group-hover:text-[#8C6D53] font-medium transition-colors"
+                >
+                  <span>{rel.descriptiveAnchor}</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                </a>
               </div>
-              <h4 className="font-serif text-lg text-[#191716] group-hover:text-[#8C6D53] transition-colors leading-snug">
-                {rel.title}
-              </h4>
             </div>
           ))}
         </div>

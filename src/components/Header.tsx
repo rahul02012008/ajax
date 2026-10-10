@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bookmark, Search, BookOpen } from 'lucide-react';
+import { Bookmark, Search } from 'lucide-react';
 
 interface HeaderProps {
   currentCategory: string;
@@ -8,8 +8,8 @@ interface HeaderProps {
   onOpenBookmarks: () => void;
   onOpenSearch: () => void;
   onOpenColophon: () => void;
-  activeArticleId: string | null;
-  onBackToHome: () => void;
+  activePath: string;
+  onNavigateHome: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,33 +19,37 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenBookmarks,
   onOpenSearch,
   onOpenColophon,
-  activeArticleId,
-  onBackToHome,
+  activePath,
+  onNavigateHome,
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E7E2DA] transition-all">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
         {/* Zone 1: Brand title wordmark (single text element) */}
-        <button
-          onClick={onBackToHome}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigateHome();
+          }}
           className="text-left group cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8C6D53]"
           aria-label="KURA Journal Home"
         >
           <span className="font-serif text-2xl lg:text-3xl tracking-[0.18em] font-medium text-[#191716] group-hover:text-[#8C6D53] transition-colors">
             K U R A
           </span>
-        </button>
+        </a>
 
         {/* Zone 2: 4-6 nav links, 1-2 word labels, single line text with hover underlines */}
         <nav className="hidden md:flex items-center gap-8 text-[13px] tracking-widest uppercase font-medium text-[#655F58]">
           <button
             onClick={() => {
-              onBackToHome();
+              onNavigateHome();
               onSelectCategory('All');
             }}
-            className={`transition-colors py-1 border-b ${
-              !activeArticleId && currentCategory === 'All'
+            className={`transition-colors py-1 border-b cursor-pointer ${
+              activePath === '/' && currentCategory === 'All'
                 ? 'text-[#191716] border-[#191716]'
                 : 'border-transparent hover:text-[#191716] hover:border-[#191716]'
             }`}
@@ -55,11 +59,11 @@ export const Header: React.FC<HeaderProps> = ({
           
           <button
             onClick={() => {
-              onBackToHome();
+              onNavigateHome();
               onSelectCategory('Architecture');
             }}
-            className={`transition-colors py-1 border-b ${
-              !activeArticleId && currentCategory === 'Architecture'
+            className={`transition-colors py-1 border-b cursor-pointer ${
+              activePath === '/' && currentCategory === 'Architecture'
                 ? 'text-[#191716] border-[#191716]'
                 : 'border-transparent hover:text-[#191716] hover:border-[#191716]'
             }`}
@@ -69,11 +73,11 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => {
-              onBackToHome();
+              onNavigateHome();
               onSelectCategory('Materials');
             }}
-            className={`transition-colors py-1 border-b ${
-              !activeArticleId && currentCategory === 'Materials'
+            className={`transition-colors py-1 border-b cursor-pointer ${
+              activePath === '/' && currentCategory === 'Materials'
                 ? 'text-[#191716] border-[#191716]'
                 : 'border-transparent hover:text-[#191716] hover:border-[#191716]'
             }`}
@@ -83,11 +87,11 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => {
-              onBackToHome();
+              onNavigateHome();
               onSelectCategory('Millwork');
             }}
-            className={`transition-colors py-1 border-b ${
-              !activeArticleId && currentCategory === 'Millwork'
+            className={`transition-colors py-1 border-b cursor-pointer ${
+              activePath === '/' && currentCategory === 'Millwork'
                 ? 'text-[#191716] border-[#191716]'
                 : 'border-transparent hover:text-[#191716] hover:border-[#191716]'
             }`}
@@ -97,11 +101,11 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => {
-              onBackToHome();
+              onNavigateHome();
               onSelectCategory('Philosophy');
             }}
-            className={`transition-colors py-1 border-b ${
-              !activeArticleId && currentCategory === 'Philosophy'
+            className={`transition-colors py-1 border-b cursor-pointer ${
+              activePath === '/' && currentCategory === 'Philosophy'
                 ? 'text-[#191716] border-[#191716]'
                 : 'border-transparent hover:text-[#191716] hover:border-[#191716]'
             }`}
@@ -111,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenColophon}
-            className="transition-colors py-1 border-b border-transparent hover:text-[#191716] hover:border-[#191716]"
+            className="transition-colors py-1 border-b border-transparent hover:text-[#191716] hover:border-[#191716] cursor-pointer"
           >
             Colophon
           </button>
@@ -121,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-4">
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 text-xs tracking-wider uppercase text-[#655F58] hover:text-[#191716] px-3 py-2 rounded transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8C6D53]"
+            className="flex items-center gap-2 text-xs tracking-wider uppercase text-[#655F58] hover:text-[#191716] px-3 py-2 rounded transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8C6D53] cursor-pointer"
             aria-label="Search articles"
           >
             <Search className="w-4 h-4 text-[#8C6D53]" />
@@ -130,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenBookmarks}
-            className="relative flex items-center gap-2 text-xs tracking-wider uppercase text-[#191716] bg-[#F1EBE3] hover:bg-[#E8E0D5] px-3.5 py-2 rounded-sm transition-colors border border-[#DDD6CC] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8C6D53]"
+            className="relative flex items-center gap-2 text-xs tracking-wider uppercase text-[#191716] bg-[#F1EBE3] hover:bg-[#E8E0D5] px-3.5 py-2 rounded-sm transition-colors border border-[#DDD6CC] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8C6D53] cursor-pointer"
             aria-label="Open reading list"
           >
             <Bookmark className="w-3.5 h-3.5 text-[#8C6D53]" />

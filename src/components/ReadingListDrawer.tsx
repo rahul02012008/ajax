@@ -6,7 +6,7 @@ interface ReadingListDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   savedArticles: Article[];
-  onReadArticle: (id: string) => void;
+  onNavigate: (path: string) => void;
   onRemoveBookmark: (id: string) => void;
   onClearAll: () => void;
 }
@@ -15,7 +15,7 @@ export const ReadingListDrawer: React.FC<ReadingListDrawerProps> = ({
   isOpen,
   onClose,
   savedArticles,
-  onReadArticle,
+  onNavigate,
   onRemoveBookmark,
   onClearAll,
 }) => {
@@ -79,7 +79,10 @@ export const ReadingListDrawer: React.FC<ReadingListDrawerProps> = ({
                 <div className="w-20 h-20 bg-[#EFE9DF] rounded-xs overflow-hidden shrink-0">
                   <img
                     src={art.featuredImage.url}
-                    alt={art.title}
+                    alt={art.featuredImage.alt}
+                    width={80}
+                    height={80}
+                    loading="lazy"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
@@ -90,32 +93,37 @@ export const ReadingListDrawer: React.FC<ReadingListDrawerProps> = ({
                     <div className="text-[10px] uppercase tracking-wider text-[#8C6D53] font-medium">
                       {art.category} · {art.readTime}
                     </div>
-                    <h4
-                      onClick={() => {
-                        onReadArticle(art.id);
-                        onClose();
-                      }}
-                      className="font-serif text-sm font-medium text-[#191716] group-hover:text-[#8C6D53] line-clamp-2 cursor-pointer transition-colors mt-0.5"
-                    >
-                      {art.title}
+                    <h4 className="font-serif text-sm font-medium text-[#191716] group-hover:text-[#8C6D53] line-clamp-2 transition-colors mt-0.5">
+                      <a
+                        href={art.path}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onNavigate(art.path);
+                          onClose();
+                        }}
+                      >
+                        {art.title}
+                      </a>
                     </h4>
                   </div>
 
                   <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#F0EAE2] text-[11px]">
-                    <button
-                      onClick={() => {
-                        onReadArticle(art.id);
+                    <a
+                      href={art.path}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigate(art.path);
                         onClose();
                       }}
                       className="font-medium text-[#191716] hover:text-[#8C6D53] inline-flex items-center gap-1 cursor-pointer"
                     >
-                      <span>Read</span>
+                      <span>Study</span>
                       <ArrowRight className="w-3 h-3" />
-                    </button>
+                    </a>
 
                     <button
                       onClick={() => onRemoveBookmark(art.id)}
-                      className="text-[#999289] hover:text-red-700 transition-colors p-1"
+                      className="text-[#999289] hover:text-red-700 transition-colors p-1 cursor-pointer"
                       title="Remove from saved"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

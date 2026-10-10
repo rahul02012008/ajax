@@ -5,7 +5,7 @@ import { ArrowUpRight, Bookmark, Maximize2 } from 'lucide-react';
 interface ArticleCardProps {
   article: Article;
   index: number;
-  onReadArticle: (id: string) => void;
+  onNavigate: (path: string) => void;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
   onOpenLightbox: (imageUrl: string, caption: string, credit: string, palette: Article['palette']) => void;
@@ -14,7 +14,7 @@ interface ArticleCardProps {
 export const ArticleCard: React.FC<ArticleCardProps> = ({
   article,
   index,
-  onReadArticle,
+  onNavigate,
   isBookmarked,
   onToggleBookmark,
   onOpenLightbox,
@@ -35,6 +35,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             <img
               src={imgSrc}
               alt={article.featuredImage.alt}
+              width={article.featuredImage.width || 1200}
+              height={article.featuredImage.height || 900}
+              loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
               onError={() => {
                 if (imgSrc !== article.featuredImage.fallbackUrl) {
@@ -65,8 +69,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                 article.palette
               );
             }}
-            className="absolute top-3 right-3 p-2 bg-[#FAF8F5]/90 hover:bg-[#FAF8F5] text-[#191716] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-[#DDD6CC] shadow-2xs"
-            aria-label="Inspect photograph"
+            className="absolute top-3 right-3 p-2 bg-[#FAF8F5]/90 hover:bg-[#FAF8F5] text-[#191716] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-[#DDD6CC] shadow-2xs cursor-pointer"
+            aria-label={`Inspect photograph for ${article.title}`}
             title="Inspect photograph"
           >
             <Maximize2 className="w-3.5 h-3.5" />
@@ -96,7 +100,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
           <button
             onClick={() => onToggleBookmark(article.id)}
-            className={`p-1.5 transition-colors focus:outline-none ${
+            className={`p-1.5 transition-colors focus:outline-none cursor-pointer ${
               isBookmarked ? 'text-[#8C6D53]' : 'text-[#A09A91] hover:text-[#191716]'
             }`}
             aria-label={isBookmarked ? 'Remove bookmark' : 'Bookmark article'}
@@ -106,13 +110,19 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </button>
         </div>
 
-        {/* Primary Title with text-balance and no orphan words */}
-        <h2
-          onClick={() => onReadArticle(article.id)}
-          className="font-serif text-xl lg:text-[22px] leading-snug font-medium text-[#191716] group-hover:text-[#8C6D53] transition-colors cursor-pointer text-balance mb-3"
-        >
-          {article.title}
-        </h2>
+        {/* Primary Title as h3 on grid (preserving single h1 hierarchy) */}
+        <h3 className="font-serif text-xl lg:text-[22px] leading-snug font-medium text-[#191716] group-hover:text-[#8C6D53] transition-colors mb-3">
+          <a
+            href={article.path}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate(article.path);
+            }}
+            className="cursor-pointer text-balance"
+          >
+            {article.title}
+          </a>
+        </h3>
 
         {/* Concise Excerpt */}
         <p className="text-[#59534C] text-sm leading-relaxed line-clamp-3 mb-4 font-normal">
@@ -121,19 +131,27 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
       </div>
 
-      {/* Footer Byline and Read Prompt */}
-      <div className="border-t border-[#EAE4DC] pt-4 mt-2 flex items-center justify-between text-xs">
-        <div className="text-[#7A746C] truncate max-w-[180px]">
-          By <span className="text-[#35312C] font-medium">{article.author.name}</span>
+      {/* Footer: Descriptive Anchor Text for SEO Internal Linking */}
+      <div className="border-t border-[#EAE4DC] pt-4 mt-2 flex flex-col gap-2">
+        <div className="flex items-center justify-between text-xs">
+          <div className="text-[#7A746C] truncate max-w-[180px]">
+            By <span className="text-[#35312C] font-medium">{article.author.name}</span>
+          </div>
+          <span className="text-[11px] font-mono text-[#8C6D53]">{article.date}</span>
         </div>
 
-        <button
-          onClick={() => onReadArticle(article.id)}
-          className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-[#191716] group-hover:text-[#8C6D53] transition-colors cursor-pointer"
+        <a
+          href={article.path}
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate(article.path);
+          }}
+          className="inline-flex items-center justify-between gap-1.5 text-xs text-[#191716] group-hover:text-[#8C6D53] transition-colors font-medium border-t border-[#F0EAE2] pt-2 mt-1 cursor-pointer"
+          title={article.descriptiveAnchor}
         >
-          <span>Study</span>
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </button>
+          <span className="line-clamp-1">{article.descriptiveAnchor}</span>
+          <ArrowUpRight className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
       </div>
     </article>
   );

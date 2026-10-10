@@ -4,7 +4,7 @@ import { ArrowRight, Bookmark, Maximize2 } from 'lucide-react';
 
 interface HeroFeaturedProps {
   article: Article;
-  onReadArticle: (id: string) => void;
+  onNavigate: (path: string) => void;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
   onOpenLightbox: (imageUrl: string, caption: string, credit: string, palette: Article['palette']) => void;
@@ -12,7 +12,7 @@ interface HeroFeaturedProps {
 
 export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
   article,
-  onReadArticle,
+  onNavigate,
   isBookmarked,
   onToggleBookmark,
   onOpenLightbox,
@@ -30,7 +30,7 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
             Cover Monograph · Volume IV
           </div>
           <div className="text-xs font-serif italic text-[#7A746C]">
-            Curated Study
+            Featured Spatial Study
           </div>
         </div>
 
@@ -49,13 +49,19 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
                 <span>{article.date}</span>
               </div>
 
-              {/* Dominant Title */}
-              <h1 
-                onClick={() => onReadArticle(article.id)}
-                className="font-serif text-3xl sm:text-4xl lg:text-[42px] leading-[1.12] font-medium text-[#191716] tracking-tight hover:text-[#8C6D53] transition-colors cursor-pointer text-balance mb-5"
-              >
-                {article.title}
-              </h1>
+              {/* Cover Article Headline (h2 to preserve single h1 rule on homepage) */}
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[42px] leading-[1.12] font-medium text-[#191716] tracking-tight hover:text-[#8C6D53] transition-colors mb-5">
+                <a
+                  href={article.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(article.path);
+                  }}
+                  className="cursor-pointer text-balance"
+                >
+                  {article.title}
+                </a>
+              </h2>
 
               {/* Subtitle / Deck */}
               <p className="text-[#4E4842] text-base lg:text-lg leading-relaxed font-normal mb-6">
@@ -73,19 +79,24 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => onReadArticle(article.id)}
-                className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#191716] text-[#FAF8F5] text-xs tracking-widest uppercase font-medium hover:bg-[#8C6D53] transition-colors rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D53]"
+            {/* Actions: Context-Specific Anchor Text (SEO Requirement) */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href={article.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate(article.path);
+                }}
+                className="inline-flex items-center gap-3 px-6 py-3.5 bg-[#191716] text-[#FAF8F5] text-xs tracking-wider uppercase font-medium hover:bg-[#8C6D53] transition-colors rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D53] cursor-pointer"
+                title={article.descriptiveAnchor}
               >
-                <span>Read Full Essay</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                <span>{article.descriptiveAnchor}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </a>
 
               <button
                 onClick={() => onToggleBookmark(article.id)}
-                className={`p-3.5 border rounded-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D53] ${
+                className={`p-3.5 border rounded-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D53] cursor-pointer ${
                   isBookmarked
                     ? 'bg-[#EFEAE2] border-[#8C6D53] text-[#8C6D53]'
                     : 'border-[#DDD6CC] hover:bg-[#F2ECE3] text-[#4E4842]'
@@ -105,6 +116,10 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
                 <img
                   src={imgSrc}
                   alt={article.featuredImage.alt}
+                  width={article.featuredImage.width || 1600}
+                  height={article.featuredImage.height || 900}
+                  loading="eager"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   onError={() => {
                     if (imgSrc !== article.featuredImage.fallbackUrl) {
@@ -116,7 +131,6 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
                   className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                 />
               ) : (
-                /* Zero-Broken-Image Fallback Container */
                 <div className="w-full h-full flex flex-col justify-center items-center p-8 bg-gradient-to-br from-[#ECE7DF] to-[#E2DDD3] text-[#655F58]">
                   <div className="w-12 h-12 border border-[#8C6D53]/40 flex items-center justify-center font-serif text-xl mb-3">
                     K
@@ -140,7 +154,7 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
                     article.palette
                   )
                 }
-                className="absolute top-4 right-4 p-2.5 bg-[#FAF8F5]/90 hover:bg-[#FAF8F5] text-[#191716] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-[#DDD6CC] shadow-sm focus:opacity-100"
+                className="absolute top-4 right-4 p-2.5 bg-[#FAF8F5]/90 hover:bg-[#FAF8F5] text-[#191716] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 border border-[#DDD6CC] shadow-sm focus:opacity-100 cursor-pointer"
                 aria-label="Inspect photography full screen"
                 title="Expand photography"
               >
