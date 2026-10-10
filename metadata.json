@@ -1,6 +1,6 @@
 {
-  "name": "KURA — Warm Minimalist Architecture & Spatial Design",
-  "description": "Explore KURA, a curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials for tranquil interior living.",
+  "name": "KURA — Japandi Interior Design Architecture",
+  "description": "Explore KURA's curated architectural monographs on Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

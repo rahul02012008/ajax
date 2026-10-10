@@ -12,14 +12,15 @@ const SITE_NAME = 'KURA';
 export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
   useEffect(() => {
     // 1. Determine Title & Meta Description based on current page
-    let title = 'Warm Minimalist Architecture & Spatial Design | KURA';
+    let title = 'Japandi Interior Design Architecture & Warm Minimalism | KURA';
     let description =
-      'Explore KURA, a curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials for tranquil interior living.';
+      "Explore KURA's curated architectural monographs on Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.";
     let canonicalUrl = `${SITE_URL}${path === '/' ? '' : path}`;
     let ogType = 'website';
     let ogImage =
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=80';
-    let keywords = 'warm minimalist architecture, spatial reductionism, tactile materials, Japanese machiya, concealed joinery';
+    let keywords =
+      'Japandi interior design architecture, wabi sabi house aesthetic, soft minimalism interior, organic modern architecture, how to design a japandi living room, warm minimalist home decor ideas, wabi sabi interior design principles';
 
     if (article) {
       title = article.seoTitle || `${article.title} | KURA`;
@@ -161,7 +162,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
 
       script.textContent = JSON.stringify(schemas);
     } else {
-      // Homepage WebSite + Blog Schema
+      // Homepage WebSite + Blog + FAQPage Schema for AEO
       const homeSchema = {
         '@context': 'https://schema.org',
         '@graph': [
@@ -169,9 +170,9 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
             '@type': 'WebSite',
             '@id': `${SITE_URL}/#website`,
             url: SITE_URL,
-            name: 'KURA — Warm Minimalist Architecture & Spatial Design',
+            name: 'KURA — Japandi Interior Design Architecture & Warm Minimalism',
             description:
-              'Explore KURA, a curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials for tranquil interior living.',
+              "Explore KURA's curated architectural monographs on Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.",
             publisher: {
               '@type': 'Organization',
               name: 'KURA Architectural Editions',
@@ -185,8 +186,38 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
             name: 'KURA Architectural Journal',
             url: SITE_URL,
             description:
-              'A curated journal exploring warm minimalist architecture, spatial reductionism, and tactile materials.',
+              'A curated journal exploring Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.',
             inLanguage: 'en-US',
+          },
+          {
+            '@type': 'FAQPage',
+            '@id': `${SITE_URL}/#faq`,
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How do you design a Japandi living room?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'To design a Japandi living room, pair low-profile Japanese furniture silhouettes with warm Scandinavian textiles, neutral earth-toned lime wash walls, raw pale oak or hinoki woods, and unadorned negative space.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What are core wabi sabi interior design principles?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Core wabi sabi interior design principles celebrate asymmetry, organic imperfection, transient beauty, natural materials that age with patina (such as slaked lime, unlacquered metals, and unglazed ceramics), and the elimination of superfluous ornament.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What are warm minimalist home decor ideas for small spaces?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Warm minimalist decor for small spaces relies on flush concealed joinery cabinets to eliminate visual clutter, floor-grazing 2700K indirect lighting, multifunctional monolithic furniture, and heavily textured natural fibers like linen and bouclé to add comfort without taking up floor space.',
+                },
+              },
+            ],
           },
         ],
       };

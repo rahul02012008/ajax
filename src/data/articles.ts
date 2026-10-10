@@ -4,11 +4,31 @@ export interface MaterialColor {
   material: string;
 }
 
+export interface ComparisonTableRow {
+  feature: string;
+  optionA: string;
+  optionB: string;
+}
+
 export interface ArticleChapter {
   id: string;
   title: string;
-  directAnswer?: string; // Direct concise answer sentence for AEO (Answer Engine Optimization)
+  directAnswer?: string; // Direct concise 1-2 sentence answer for AEO (Answer Engine Optimization)
   content: string[];
+  comparisonTable?: {
+    headerA: string;
+    headerB: string;
+    rows: ComparisonTableRow[];
+  };
+  prosAndCons?: {
+    pros: string[];
+    cons: string[];
+  };
+  stepList?: {
+    step: string;
+    title: string;
+    description: string;
+  }[];
   pullQuote?: string;
   imageDetail?: {
     url: string;
@@ -41,6 +61,7 @@ export interface Article {
   category: 'Architecture' | 'Materials' | 'Millwork' | 'Lighting' | 'Philosophy';
   date: string;
   readTime: string;
+  wordCount: number;
   author: {
     name: string;
     role: string;
@@ -71,17 +92,18 @@ export const ARTICLES: Article[] = [
     id: 'art-01',
     slug: 'modern-kyoto-machiya',
     path: '/architecture/modern-kyoto-machiya',
-    seoTitle: 'Modern Kyoto Machiya: Warm Minimalist Japanese Townhouse | KURA',
-    metaDescription: 'Discover how modern Kyoto machiya architecture blends charred cedar siding, tatami acoustics, and tranquil shadow lines for monastic domestic warmth.',
-    mainKeyword: 'modern Kyoto machiya',
-    relatedKeywords: ['charred cedar siding', 'tatami acoustics', 'Japanese townhouse', 'tsuboniwa courtyard'],
-    descriptiveAnchor: 'Explore our study on modern Kyoto machiya townhouses',
+    seoTitle: 'Modern Japanese Machiya Interior: Yakisugi & Tatami Design | KURA',
+    metaDescription: 'Explore modern Japanese machiya interior architecture. Learn about yakisugi charred wood, acoustic tatami room design, and modern traditional townhouse living.',
+    mainKeyword: 'modern Japanese machiya interior',
+    relatedKeywords: ['yakisugi charred wood', 'tatami room design', 'modern traditional japanese house', 'japanese townhouse architecture'],
+    descriptiveAnchor: 'Explore our monograph on modern Japanese machiya interiors',
     title: 'The Architecture of Silence: Monastic Warmth in Kyoto’s Modern Machiya',
-    subtitle: 'Reimagining the historic wooden townhouse through charred cedar siding, tatami acoustics, and the deep spatial shadow of Jun’ichirō Tanizaki.',
+    subtitle: 'Reimagining the historic wooden townhouse through charred yakisugi wood, tatami room acoustics, and the deep spatial shadow of Jun’ichirō Tanizaki.',
     kicker: 'Spatial Studies 01',
     category: 'Architecture',
     date: 'October 14, 2026',
-    readTime: '8 min read',
+    readTime: '10 min read',
+    wordCount: 1140,
     author: {
       name: 'Kengo Yoshida',
       role: 'Spatial Theorist & Principal, Atelier Mu',
@@ -90,7 +112,7 @@ export const ARTICLES: Article[] = [
     featuredImage: {
       url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=80',
       fallbackUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Modern Kyoto machiya interior with charred cedar beams and rush tatami mats',
+      alt: 'Modern Japanese machiya interior with yakisugi charred wood beams, paper shoji screens, and woven tatami mats',
       caption: 'Kyoto Machiya Pavilion: Interplay between natural cedar posts, shoji translucency, and the quiet shadow line.',
       credit: 'Photography by Hiroshi Tanaka / Atelier Mu',
       width: 1600,
@@ -103,96 +125,112 @@ export const ARTICLES: Article[] = [
       { name: 'Kozo Washi Paper', hex: '#F3EDE2', material: 'Handmade mulberry sliding partitions' }
     ],
     specifications: [
-      { label: 'Typology', value: 'Residential Renovation' },
-      { label: 'Floor Area', value: '118 m²' },
-      { label: 'Primary Timber', value: 'Reclaimed Japanese Hinoki & Cedar' },
-      { label: 'Glazing Treatment', value: 'Double-pane low-E with internal paper lattice' }
+      { label: 'Typology', value: 'Historic Residential Machiya Renovation' },
+      { label: 'Floor Area', value: '118 m² (Two-story continuous timber grid)' },
+      { label: 'Primary Timber', value: 'Reclaimed Japanese Hinoki, Sugi & Yakisugi' },
+      { label: 'Glazing Treatment', value: 'Double-pane Low-E with interior paper lattice' },
+      { label: 'Reverberation Target', value: 'RT60 = 0.36 seconds across conversational frequencies' }
     ],
-    excerpt: 'To step across the stone threshold of a traditional Kyoto machiya is to surrender modern visual frenzy in favor of an acoustic and perceptual hush that has been refined over four centuries.',
+    excerpt: 'To step across the stone threshold of a modern Japanese machiya interior is to surrender modern visual frenzy in favor of an acoustic and perceptual hush that has been refined over four centuries.',
     chapters: [
       {
-        id: 'what-makes-modern-kyoto-machiya-unique',
-        title: 'What makes a modern Kyoto machiya unique?',
-        directAnswer: 'A modern Kyoto machiya combines traditional timber post-and-beam joinery with contemporary spatial reductionism, prioritizing monastic stillness, charred cedar woodwork, and filtered natural illumination.',
+        id: 'what-defines-modern-japanese-machiya-interior',
+        title: 'What defines a modern Japanese machiya interior?',
+        directAnswer: 'A modern Japanese machiya interior is an architectural fusion of traditional timber-frame townhouses with contemporary spatial reductionism, emphasizing hand-planed hinoki posts, rush tatami acoustics, and filtered natural illumination.',
         content: [
-          'In historical Japanese residential architecture, the machiya (merchant townhouse) developed within narrow urban parcels with deep street-to-garden proportions, colloquially called "the bed of eels" (unagi no nedoko). While traditional layouts accommodated trade and storage, our contemporary restoration strips unnecessary compartmentalization to highlight structural joinery.',
-          'Rather than treating preservation as nostalgic taxidermy, modern Kyoto machiya design introduces high-performance thermal insulation concealed behind historic timber posts and replaces harsh fluorescent fixtures with hidden 2200K linear grazes that illuminate hand-planed hinoki cedar.',
-          'The result is a residential sanctuary that balances seventeenth-century artisan tectonics with twenty-first-century thermal comfort and pristine visual restraint.'
+          'In historical Japanese urban architecture, the machiya (traditional merchant townhouse) evolved within narrow, elongated urban parcels colloquially termed unagi no nedoko, or "the bed of eels." While historical configurations divided these footprints into cramped shopfronts, secondary courtyards, and rear storehouses, modern Japanese machiya interior design strips non-structural partitions to celebrate the skeletal timber frame.',
+          'Rather than treating heritage preservation as static museum curation, contemporary architects introduce concealed thermal envelopes behind hand-planed posts and replace glare-heavy lighting fixtures with indirect 2200K linear grazes that illuminate organic cedar grain.',
+          'The defining hallmark of the modern machiya is intentional reduction: every piece of joinery, from recessed sliding shoji tracks to unglazed earthen floor borders, serves to calm the human nervous system. Domestic entropy is concealed within flush cedar storage walls, allowing spatial volume and quiet daylight to take center stage.'
         ],
         pullQuote: 'Space does not begin where walls stand; it begins where clutter stops and acoustic silence is permitted to settle.'
       },
       {
-        id: 'how-do-tatami-acoustics-quiet-noise',
-        title: 'How do tatami acoustics and the doma threshold quiet domestic noise?',
-        directAnswer: 'The unglazed earthen doma entrance and dense woven rush tatami mats absorb high-frequency sound reflections, dropping interior reverberation time below 0.38 seconds to establish an acoustic sanctuary.',
+        id: 'yakisugi-exterior-siding-pros-and-cons',
+        title: 'What are the pros and cons of yakisugi exterior siding?',
+        directAnswer: 'Yakisugi (shou sugi ban) charred wood provides exceptional natural fireproofing, insect resistance, and 80+ year exterior durability without chemical treatments, though it requires skilled craftsmanship and can leave minor carbon residue if unsealed.',
         content: [
-          'In conventional western residences, hard drywall and polished porcelain tiles bounce sound waves around the room, generating subtle auditory fatigue. In contrast, the spatial sequence of a modern Kyoto machiya begins at the doma—a sunken ground-level passage surfaced in dark compressed stone and volcanic clay.',
-          'Here, shoes are removed, outdoor dust is shed, and the compressed stone floor acts as an auditory shock absorber. Ascending from the doma onto the elevated timber platforms and igusa rush tatami completely alters sensory perception.',
-          'Tatami mats are constructed from hundreds of thousands of microscopic air-filled cellular chambers woven from natural rush grass. These straw matrices absorb airborne speech frequencies and footstep vibrations, eliminating flutter echoes and instilling a monastery-like calm across the dwelling.'
+          'Yakisugi (traditionally referred to in the West as Shou Sugi Ban) is an ancient Japanese wood-preservation technique dating back to the eighth century. By binding three Japanese red cedar (Cryptomeria japonica) planks into a triangular chimney and igniting an interior draft fire, the wood surface undergoes controlled thermal decomposition.',
+          'This intense flame pyrolyzes the surface cellulose and hemicellulose—the sugars that attract wood-boring insects, termites, and fungal rot—leaving behind an amorphous layer of elemental carbon. This carbonized crust makes the timber virtually flame-resistant, as the combustible material has already been consumed by fire.',
+          'In a modern traditional Japanese house, yakisugi creates an extraordinary contrast against pale interior plaster. The rich, alligator-skin carbon texture absorbs incoming daylight completely, framing the bright interior living spaces like a dark velvet mount around a delicate parchment scroll.'
+        ],
+        prosAndCons: {
+          pros: [
+            'Exceptional natural durability exceeding 80–100 years without synthetic paint or toxic biocides',
+            'Inherent resistance to wood-boring pests, termites, and fungal decay due to caramelized sugars',
+            'Superior natural fire resistance: the pre-carbonized crust slows flame propagation',
+            'Timeless wabi-sabi patina that gracefully weathers from deep coal black to silvery charcoal over decades'
+          ],
+          cons: [
+            'Requires specialized installation techniques: boards must be face-nailed with stainless-steel fasteners to prevent splitting',
+            'Heavy char (Gendai/Suyaki) surfaces can shed dark carbon soot upon physical contact unless sealed with natural tung or linseed oil',
+            'Higher upfront material and artisan fabrication cost compared to mass-produced western cedar or composite siding'
+          ]
+        }
+      },
+      {
+        id: 'how-to-style-modern-tatami-room-acoustic-comfort',
+        title: 'How do you style a modern tatami room for acoustic comfort?',
+        directAnswer: 'Styling a modern tatami room for acoustic comfort involves pairing dense woven igusa rush floor mats with handmade washi shoji screens and low-profile furniture to absorb room flutter echoes and reduce reverberation below 0.38 seconds.',
+        content: [
+          'In conventional western residences, drywall and polished tiles bounce acoustic reflections across open rooms, generating subconscious sensory strain. In contrast, an authentic modern tatami room design functions as a sophisticated acoustic damper.',
+          'Each traditional tatami mat contains an internal compressed rice-straw core (tatami-doko) capped by a dense weave of unbleached natural rush grass (igusa). Under the microscope, igusa rush possesses a sponge-like, honeycomb cellular cross-section with millions of microscopic air pockets. When acoustic waves enter the room, these micro-pores trap high and mid-frequency sound waves, absorbing flutter echoes and footstep reverberation.',
+          'To style a contemporary tatami space without falling into clutter, specify borderless square mats (Ryukyu tatami). Arranged in an alternating checkerboard weave, the light reflects differently off adjacent squares, creating optical depth. Keep furniture low: a solid hinoki low tea table (chabudai), floor cushions (zafuton) upholstered in natural linen, and recessed alcove displays provide an acoustic hush that drops interior reverberation to monastery levels.'
         ],
         imageDetail: {
           url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&fit=crop&fm=webp&w=1200&q=80',
           caption: 'Fig. 1 — Subdued tatami room facing an interior courtyard with raked pebbles and moss.',
-          alt: 'Subdued tatami room with raked stone courtyard garden in modern Kyoto machiya',
+          alt: 'Subdued tatami room with raked stone courtyard garden in modern Japanese machiya townhouse',
           width: 1200,
           height: 800,
           architectOrStudio: 'Atelier Mu Architecture'
         }
       },
       {
-        id: 'why-charred-cedar-yakisugi-siding',
-        title: 'Why is charred cedar (Yakisugi) used in Japanese spatial reductionism?',
-        directAnswer: 'Yakisugi charred cedar provides natural pest and fire resistance without chemical coatings, while its deep, carbonized surface absorbs light to draw the eye toward delicate gradients of natural shadow.',
+        id: 'tsuboniwa-courtyard-ventilation-channels',
+        title: 'How do tsuboniwa courtyards optimize light and airflow in Japanese townhouse architecture?',
+        directAnswer: 'A central tsuboniwa courtyard garden functions as a passive micro-climate lung, drawing natural convection drafts through narrow townhouse footprints while illuminating deep interior rooms with shifting natural daylight.',
         content: [
-          'In his seminal 1933 essay In Praise of Shadows, Jun’ichirō Tanizaki observed that the beauty of a Japanese room lies not in radiant brightness, but in the subtle gradations of penumbra where lacquerware and dark timbers glow softly in the gloom.',
-          'By heat-treating cedar siding through controlled surface combustion, a dense layer of carbon is formed on the wood. Unlike glossy synthetic lacquers, charred cedar does not reflect harsh highlights. It absorbs specular glare, allowing the eye to rest effortlessly.',
-          'Interiors framed by charred cedar and handmade kozo mulberry washi screens transform raking midday sun into a warm, diffused luminescence that softens architectural boundaries.'
-        ]
-      },
-      {
-        id: 'how-tsuboniwa-courtyard-dissolves-boundaries',
-        title: 'How does the tsuboniwa courtyard dissolve boundaries between room and garden?',
-        directAnswer: 'The micro-courtyard tsuboniwa acts as a central respiratory lung, channeling rainfall, seasonal breezes, and dappled daylight into the deepest core of the home while maintaining strict privacy.',
-        content: [
-          'Occupying barely three to five square meters in the core of the plan, the tsuboniwa is a miniature ecosystem. A solitary Japanese maple, grounded in weathered river rocks and velvety green moss, responds to seasonal weather shifts directly inside the home.',
-          'By keeping interior seating positioned low to the ground in accordance with floor-dwelling customs, the inhabitant’s natural gaze is perpetually drawn toward this framed living portrait. The glass perimeter slides flush into hidden pocket jambs during summer months, merging interior floorboards with the garden bed.'
+          'Because historical Japanese machiya were constructed with narrow street frontages often exceeding thirty meters in depth, interior rooms were originally deprived of cross-ventilation and natural daylight. The architectural invention that solved this dilemma was the tsuboniwa (tiny courtyard garden, typically two to five square meters).',
+          'During sweltering summer afternoons in the Kyoto basin, cool air naturally gathers in the shaded gravel and moss floor of the tsuboniwa. As warm air rises through the upper clerestory windows, a gentle convective draft pulls fresh air through the front sliding lattice (koshi), cooling the interior without motorized mechanical HVAC.',
+          'Visually, the tsuboniwa is framed by floor-to-ceiling glass that slides into hidden wall pockets. A solitary Japanese maple or camellia branch, surrounded by raked granite gravel and volcanic stones, transforms the courtyard into a living artwork that reflects seasonal transitions inside the quiet domestic core.'
         ]
       }
     ],
     faq: [
       {
-        question: 'What is a modern Kyoto machiya?',
-        quickAnswer: 'A modern Kyoto machiya is an architectural restoration of the traditional Japanese merchant townhouse that pairs historic timber frames with contemporary minimalist interior planning and thermal insulation.',
-        fullAnswer: 'Historically built as timber-frame residences for Kyoto merchants and craftsmen, modern machiya adaptations strip away chaotic domestic additions, exposing hand-hewn hinoki posts, rush tatami acoustics, and peaceful tsuboniwa courtyards.'
+        question: 'What defines a modern Japanese machiya interior?',
+        quickAnswer: 'A modern Japanese machiya interior blends historic timber post-and-beam construction with minimalist layouts, charred yakisugi accents, and woven tatami acoustics.',
+        fullAnswer: 'By stripping non-structural walls and restoring hand-hewn hinoki posts, modern machiya residences create open-concept living that preserves 400 years of traditional Japanese craftsmanship alongside modern thermal comfort.'
       },
       {
-        question: 'How does tatami improve domestic acoustic calm?',
-        quickAnswer: 'Tatami rush mats contain millions of microscopic hollow fibers that absorb sound waves and prevent harsh room echoes.',
-        fullAnswer: 'Unlike polished stone or hardwood floors, dense igusa rush mats provide natural sound-dampening characteristics, reducing room reverberation to under 0.4 seconds and fostering deep acoustic tranquility.'
+        question: 'What are the pros and cons of yakisugi exterior siding?',
+        quickAnswer: 'Yakisugi offers 80+ years of fire-hardened, pest-resistant durability and natural wabi-sabi beauty, with the main tradeoff being higher artisan craftsmanship costs and potential carbon smudging if unsealed.',
+        fullAnswer: 'Yakisugi is an eco-friendly wood preservation method that avoids toxic chemicals. The charred surface layer caramelizes sugars, preventing insect colonization and fungal decay for decades.'
       },
       {
-        question: 'What is the purpose of the doma in Japanese architecture?',
-        quickAnswer: 'The doma is an earthen or stone threshold zone that transitions the occupant between the public street and the elevated private sanctuary.',
-        fullAnswer: 'Serving as a thermal and acoustic pause, the doma allows dust and mental noise to be left behind before stepping up onto the warm wooden floors and tatami mats of the home.'
+        question: 'How do you style a modern tatami room for acoustic comfort?',
+        quickAnswer: 'Use borderless Ryukyu tatami squares, handmade washi paper shoji screens, low-slung timber furniture, and natural linen textiles to achieve a quiet reverberation time under 0.4 seconds.',
+        fullAnswer: 'Natural igusa rush contains microscopic hollow tubes that act as acoustic traps. Styling the room with minimal, low-profile furnishings ensures an uncluttered, peaceful environment ideal for meditation, tea, and contemplation.'
       }
     ],
-    keyTakeaway: 'Modern Kyoto machiya design demonstrates that minimalist reductionism is not about cold sterile surfaces, but about removing sensory distractions so that natural timber, tatami acoustics, and shifting shadows can nourish the human spirit.'
+    keyTakeaway: 'The modern Japanese machiya proves that architectural minimalism is not an exercise in clinical sterility, but an intentional subtraction of noise that allows charred timber, rush tatami acoustics, and filtered shadows to heal the senses.'
   },
   {
     id: 'art-02',
     slug: 'microcement-lime-wash-surfaces',
     path: '/materials/microcement-lime-wash-surfaces',
-    seoTitle: 'Microcement and Lime Wash Surfaces: Tactile Wall Guide | KURA',
-    metaDescription: 'A deep dive into microcement and lime wash surfaces. Learn how slaked lime finishes and tactile interior walls create breathable minimalist spaces.',
-    mainKeyword: 'microcement and lime wash surfaces',
-    relatedKeywords: ['tactile interior walls', 'slaked lime finish', 'seamless microcement floor', 'breathable mineral plaster'],
-    descriptiveAnchor: 'Read our guide on microcement and lime wash surfaces',
+    seoTitle: 'Limewash vs Microcement Walls: Tactile Interior Finishes | KURA',
+    metaDescription: 'Limewash vs microcement walls compared. Discover how slaked lime plaster finish, breathable wall paint, and tactile interior walls elevate modern homes.',
+    mainKeyword: 'limewash vs microcement walls',
+    relatedKeywords: ['slaked lime plaster finish', 'breathable wall paint', 'tactile interior walls', 'microcement bathroom walls pros and cons'],
+    descriptiveAnchor: 'Read our guide comparing limewash vs microcement walls',
     title: 'Tactile Restraint: Hand-Troweled Lime Wash and Microcement Surfaces',
-    subtitle: 'Why uniform flat drywall fails the human touch, and how natural mineral finishes imbue reductionist spaces with warmth and living patina.',
+    subtitle: 'Why sterile flat latex walls fail the human touch, and how natural mineral finishes imbue reductionist spaces with warmth and living patina.',
     kicker: 'Materiality 02',
     category: 'Materials',
     date: 'September 28, 2026',
-    readTime: '7 min read',
+    readTime: '10 min read',
+    wordCount: 1190,
     author: {
       name: 'Elena Rostova',
       role: 'Material Conservator & Surface Architect',
@@ -201,7 +239,7 @@ export const ARTICLES: Article[] = [
     featuredImage: {
       url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&fm=webp&w=1600&q=80',
       fallbackUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Minimalist living room with hand-troweled lime wash walls and seamless microcement flooring',
+      alt: 'Tactile minimalist living room featuring limewash walls and seamless microcement flooring in soft neutral tones',
       caption: 'Antwerp Penthouse: Hand-applied slaked lime plaster creating organic light gradation across the south-facing living pavilion.',
       credit: 'Photography by Frederik Vercruysse',
       width: 1600,
@@ -217,93 +255,115 @@ export const ARTICLES: Article[] = [
       { label: 'Surface System', value: '3-Coat Slaked Lime with Mineral Wax' },
       { label: 'Floor Thickness', value: '3.5 mm Seamless Microcement' },
       { label: 'Acoustic Absorption', value: 'NRC 0.32 (plaster) + wool underlay' },
-      { label: 'VOC Rating', value: 'Zero VOC / Hypoallergenic' }
+      { label: 'VOC Rating', value: 'Zero VOC / Hypoallergenic' },
+      { label: 'Substrate Compatibility', value: 'Drywall, concrete, brick, plasterboard, cement screed' }
     ],
     excerpt: 'When an interior is stripped of paintings, mouldings, and decorative bric-a-brac, the surface of the wall itself becomes the canvas. A flat synthetic latex wall feels dead; a slaked lime finish breathes.',
     chapters: [
       {
-        id: 'how-slaked-lime-microcement-breathe',
-        title: 'How do slaked lime and microcement surfaces breathe?',
-        directAnswer: 'Slaked lime finishes and microcement surfaces breathe through a microporous calcium carbonate matrix that naturally regulates ambient humidity and diffuses incoming daylight with velvety softness.',
+        id: 'limewash-vs-microcement-walls-primary-difference',
+        title: 'Limewash vs microcement walls: What is the primary difference?',
+        directAnswer: 'The primary difference is that limewash is a breathable, ultra-matte mineral coating applied like paint at under 1mm for velvety aesthetic depth, whereas microcement is a durable, waterproof polymer-modified cement overlay applied at 2–3mm for seamless floors, walls, and wet areas.',
         content: [
-          'For decades, standard residential construction has enveloped rooms in synthetic acrylic emulsions—liquid plastics that create an impermeable membrane over drywall boards. The result is an acoustic reflection that feels harsh and a plastic sheen under raking sunlight.',
-          'By contrast, slaked lime (calcium hydroxide) cures via a carbonation cycle: over months and years, it absorbs carbon dioxide from room air, slowly turning back into hard limestone. Its crystalline microscopic structure permits moisture vapor to transfer freely without trapping dampness, regulating domestic humidity naturally.',
-          'When natural sunlight strikes a lime wash wall, incoming photons bounce against millions of microscopic crystal facets. Instead of creating a harsh glare spot, the wall disperses the light evenly across the room with a velvety, powdery aura.'
+          'In contemporary minimalist architecture, the choice between limewash and microcement dictates how light, acoustics, and tactile touch behave in a space. Both eliminate the plastic sheen of synthetic latex paint, yet they fulfill entirely different architectural roles.',
+          'Limewash is manufactured from aged calcium hydroxide (slaked lime putty) diluted with water and natural mineral pigments. It chemically bonds to porous substrates through carbonation, absorbing atmospheric carbon dioxide to return to solid limestone. Its application is fluid, lightweight (less than 1mm total thickness), and characterized by cloud-like tonal variations and chalky matte reflectance.',
+          'Microcement (often called microtopping or béton ciré), on the other hand, is a composite formulation of Portland cement, high-performance polymers, ultrafine aggregates, and liquid resin. Applied by hand in consecutive 1mm passes with stainless-steel trowels, it produces a monolithic, high-tensile stone skin capable of bridging hair-line movement and resisting full immersion in showers.'
         ],
+        comparisonTable: {
+          headerA: 'Limewash Wall Finish',
+          headerB: 'Microcement Wall & Floor System',
+          rows: [
+            { feature: 'Core Composition', optionA: 'Slaked lime putty (Ca(OH)₂), mineral pigments, water', optionB: 'Portland cement, water-based polymers, fine quartz aggregate' },
+            { feature: 'System Thickness', optionA: '0.3 mm – 0.8 mm (2 coats paint)', optionB: '2.5 mm – 3.5 mm (multi-layer troweled overlay)' },
+            { feature: 'Waterproofing & Wet Areas', optionA: 'Vapor-permeable; not suitable for shower stalls', optionB: '100% waterproof when sealed with 2K polyurethane' },
+            { feature: 'Substrate Flexibility', optionA: 'Requires porous or mineral-primed drywall', optionB: 'Bonds to tiles, concrete, plasterboard, wood subfloors' },
+            { feature: 'Tactile & Visual Texture', optionA: 'Chalky, velvet matte with cloud-like watercolor nuance', optionB: 'Smooth or stone-honed, continuous monolithic expanse' },
+            { feature: 'Average Cost (Installed)', optionA: '$8 – $18 per sq. ft. (accessible DIY potential)', optionB: '$25 – $50 per sq. ft. (requires certified artisan)' }
+          ]
+        },
         pullQuote: 'A sterile room is one where light hits a dead surface. A soulful room is one where light penetrates the mineral grain.'
       },
       {
-        id: 'why-choose-lime-wash-over-synthetic-paint',
-        title: 'Why choose lime wash over conventional synthetic latex paint?',
-        directAnswer: 'Lime wash bonds chemically to masonry substrates to create a living mineral coat with zero VOC emissions and a natural patina that improves with age rather than peeling.',
+        id: 'how-to-apply-limewash-paint-beginners',
+        title: 'How do you apply limewash paint as a beginner?',
+        directAnswer: 'Beginners can apply limewash by preparing a smooth drywall surface, applying a gritty mineral acrylic primer, and using an expansive block brush in rapid figure-eight cross-hatch strokes with properly diluted paint.',
         content: [
-          'Conventional latex paints degrade through peeling, bubbling, and scuffing, requiring toxic chemical removers or relentless repainting cycles. Lime wash, however, becomes an integral part of the substrate.',
-          'Formulated from aged putty lime and natural earth pigments (such as French ochre, Italian raw sienna, or bone black), lime wash is completely hypoallergenic and naturally antimicrobial due to its alkaline pH of 12.',
-          'In minimalist interiors where decorative distractions are removed, the wall ceases to be a sterile boundary and becomes a rich tactile envelope.'
+          'Applying authentic limewash paint is closer to fine-art watercolor glazing than standard roller painting. Because limewash contains suspended mineral particles rather than plastic film-formers, standard synthetic rollers will leave unsightly stipple marks and lap streaks. The secret lies in the tool and the stroke.',
+          'Before opening the paint can, ensure standard drywall is treated with a specialized mineral primer containing micro-silica aggregate. This gives the smooth gypsum surface the tooth needed for the calcium crystals to anchor mechanically.',
+          'Work across one complete architectural wall plane without pausing to avoid hard dry-edge marks. Keep the room at moderate humidity and avoid direct drafty fans that dry the edges prematurely.'
+        ],
+        stepList: [
+          { step: '01', title: 'Substrate Preparation', description: 'Patch drywall defects with setting compound, sand flush to Level 4/5, and apply a high-adhesion mineral quartz primer to provide uniform surface porosity.' },
+          { step: '02', title: 'Hydration and Dilution', description: 'Thoroughly mix the limewash with a paddle drill. Dilute the first coat with 15–20% clean water to create a fluid, penetrating ground coat.' },
+          { step: '03', title: 'The Cross-Hatch Cloud Technique', description: 'Dip a wide 5-to-7-inch natural bristle masonry block brush. Work in continuous, overlapping "X" and figure-eight strokes across 4-square-foot sections, feathering the wet edge continuously.' },
+          { step: '04', title: 'Curing and Second Coat', description: 'Allow 6 to 12 hours for the first coat to carbonate and dry to a lighter value. Apply a second, less-diluted coat using looser cross-hatching to build multi-dimensional cloud movement.' },
+          { step: '05', title: 'Breathable Sealing (Optional)', description: 'For dining areas, stairwells, or powder rooms, wipe a natural breathable matte wax or mineral silicate sealer over the cured plaster to protect against water spots.' }
+        ]
+      },
+      {
+        id: 'microcement-bathroom-walls-pros-and-cons',
+        title: 'Are microcement bathroom walls durable and waterproof?',
+        directAnswer: 'Yes, microcement bathroom walls are fully waterproof and highly durable when protected by two-component polyurethane sealers, creating a grout-free monolithic wet-room that resists mold and thermal expansion.',
+        content: [
+          'Grout joints in traditional tile installations represent the primary failure point in residential bathrooms: mold spores colonize the porous grout, and seasonal building deflection inevitably causes hairline fissures. Microcement eliminates this vulnerability entirely.',
+          'When installed in wet rooms and walk-in showers, the system comprises an epoxy moisture barrier primer, a fiberglass reinforcing mesh bedded in base microcement, followed by two fine finishing microcement coats. Once cured, three coats of aliphatic two-component polyurethane sealer are roller-applied.',
+          'This clear polyurethane barrier penetrates deep into the mineral pores, creating an impervious shield resistant to soap scum, shampoos, hard water, and temperature swings. Because the surface is continuous, water cascades smoothly into linear floor drains with zero resistance.'
         ],
         imageDetail: {
           url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1200&q=80',
           caption: 'Fig. 2 — Seamless transition between microcement floor and raw linen upholstery.',
-          alt: 'Seamless microcement floor paired with raw linen sofa in minimalist interior',
+          alt: 'Seamless microcement wet room floor and wall transition in minimalist bathroom',
           width: 1200,
           height: 800,
           architectOrStudio: 'Rostova Material Lab'
         }
       },
       {
-        id: 'what-makes-seamless-microcement-superior',
-        title: 'What makes seamless microcement superior to tiled flooring in minimalist design?',
-        directAnswer: 'Microcement eliminates disruptive grout lines, forming a continuous 3.5mm monolithic floor that expands spatial continuity and visually enlarges living areas.',
+        id: 'organic-textures-minimalist-walls-slaked-lime',
+        title: 'How do slaked lime plaster finishes create organic textures for minimalist walls?',
+        directAnswer: 'Slaked lime plaster finishes cure through natural carbonation, absorbing airborne carbon dioxide to form microscopic limestone crystals that scatter daylight at multiple angles for organic depth.',
         content: [
-          'Grout joints on tiled floors function as visual measuring rulers, forcing the brain to subdivide rooms into repetitive geometric grids. This grid chatter disrupts spatial tranquility.',
-          'Microcement solves this by establishing an unbroken horizontal plane across entire floor plans. Applied by master artisans with curved stainless-steel trowels in consecutive 1mm passes, subtle variations in blade pressure produce organic cloud-like depth.',
-          'When integrated over hydronic radiant floor heating systems, microcement warms quickly and feels like soft, sun-baked river rock beneath bare feet.'
-        ]
-      },
-      {
-        id: 'how-tactile-interior-walls-influence-sensory-calm',
-        title: 'How do tactile interior walls influence sensory calm and light diffusion?',
-        directAnswer: 'Hand-troweled mineral textures scatter raking daylight at microscopic angles, softening shadows and reducing visual glare to generate a grounding spatial atmosphere.',
-        content: [
-          'Human sensory perception evolved in natural mineral and geological environments. Monotonous, factory-flat surfaces deprive the nervous system of tactile feedback.',
-          'By introducing slight surface variations in lime wash, the wall displays gentle tonal shifts throughout the day—warm amber in the morning, soft chalk at noon, and deep mineral stone at dusk. The interior participates actively in the circadian passage of time.'
+          'In minimal interior design, removing framed art and decorative wall moldings leaves large vertical planes bare. If those planes are surfaced in standard matte latex paint, the space risks feeling sterile and industrial.',
+          'Natural slaked lime plaster finishes introduce organic relief through mineral crystallization. As calcium hydroxide absorbs carbon dioxide, it reverts into calcium carbonate. Under daylight, incoming photons penetrate the semi-translucent crystal surface and reflect off varied depths of natural earth pigments.',
+          'The wall changes character constantly throughout the daylight cycle: crisp chalk at noon, velvety putty in late afternoon, and warm glowing stone under evening incandescent lamps. The room feels alive, grounded, and deeply restorative.'
         ]
       }
     ],
     faq: [
       {
-        question: 'What is the difference between lime wash and ordinary paint?',
-        quickAnswer: 'Lime wash is a natural mineral coating made of slaked limestone that cures through carbonation, while ordinary paint is an acrylic plastic film that seals walls and reflects glare.',
-        fullAnswer: 'Lime wash penetrates porous masonry and drywall primer to form a breathable stone layer that develops an organic patina, resisting mold and dampness without chemical additives.'
+        question: 'What is the main difference between limewash and microcement walls?',
+        quickAnswer: 'Limewash is a breathable, ultra-matte mineral paint applied at under 1mm for living walls, while microcement is a durable, waterproof 3mm cement overlay for floors and wet rooms.',
+        fullAnswer: 'Limewash is ideal for living rooms, dining rooms, and bedrooms seeking organic chalky depth. Microcement is the preferred solution for seamless bathroom wet-rooms, kitchen countertops, and continuous monolithic flooring.'
       },
       {
-        question: 'Can microcement be applied over existing floors?',
-        quickAnswer: 'Yes, microcement can be troweled directly over concrete, screed, or existing tiles at just 3mm to 3.5mm thickness without modifying door frames.',
-        fullAnswer: 'Due to its high-adhesion polymer-modified cement formulation, microcement bonds tenaciously to stable subfloors, eliminating the mess of tearing out old tiles.'
+        question: 'How do you apply limewash paint as a beginner?',
+        quickAnswer: 'Prime drywall with a gritty mineral primer, then use a wide masonry block brush in overlapping cross-hatch (X) motions with properly diluted paint.',
+        fullAnswer: 'Work wet-on-wet across one entire wall at a time to prevent lap marks. Two coats are applied 8 to 12 hours apart, allowing the lime to cure into a soft, cloudy watercolor patina.'
       },
       {
-        question: 'How do you clean and maintain lime wash walls?',
-        quickAnswer: 'Lime wash walls protected with natural beeswax or mineral sealant can be gently wiped down with a damp microfiber cloth and mild neutral soap.',
-        fullAnswer: 'For high-moisture rooms like kitchens and baths, breathable hydrophobic sealers protect against oil or water stains while preserving the velvet matte appearance.'
+        question: 'Are microcement bathroom walls waterproof and mold-resistant?',
+        quickAnswer: 'Yes, microcement wet-rooms sealed with two-component polyurethane are 100% waterproof, seamless, and naturally resist mold growth.',
+        fullAnswer: 'Without grout lines to harbor moisture or bacteria, a sealed microcement shower is easy to clean with mild neutral soap and water, lasting decades without degradation.'
       }
     ],
-    keyTakeaway: 'Tactile minimalism replaces decorative clutter with geological depth. Slaked lime wash and seamless microcement provide breathable surfaces that age with authentic character.'
+    keyTakeaway: 'Choosing between limewash and microcement is about honoring function: use breathable slaked lime wash to bring light-diffusing soul to living spaces, and utilize monolithic microcement to eliminate grout chatter in high-traffic wet zones.'
   },
   {
     id: 'art-03',
     slug: 'flush-joinery-concealed-storage',
     path: '/millwork/flush-joinery-concealed-storage',
-    seoTitle: 'Concealed Storage Millwork: Flush Joinery in Minimalist Design | KURA',
-    metaDescription: 'Eliminate visual noise with bespoke concealed storage millwork. Master flush joinery and seamless minimalist interior cabinetry for pristine living.',
-    mainKeyword: 'concealed storage millwork',
-    relatedKeywords: ['flush joinery', 'minimalist interior cabinetry', 'shadow gap baseboard', 'frameless pivot doors'],
-    descriptiveAnchor: 'Learn how concealed storage millwork eliminates domestic visual clutter',
+    seoTitle: 'Hidden Storage Solutions: Flush Joinery Cabinets Guide | KURA',
+    metaDescription: 'Maximize square footage with hidden storage solutions for small spaces. Master flush joinery cabinets, invisible doors, and seamless built in wardrobes.',
+    mainKeyword: 'hidden storage solutions for small spaces',
+    relatedKeywords: ['flush joinery cabinets', 'minimalist concealed storage', 'seamless built in wardrobes', 'flush inset cabinet hinges guide'],
+    descriptiveAnchor: 'Discover bespoke hidden storage solutions for small spaces',
     title: 'The Unbroken Plane: Flush Joinery and Concealed Storage Systems',
     subtitle: 'Examining the rigorous engineering of shadow beads, ceiling-height pivot doors, and millwork that hides domestic entropy.',
     kicker: 'Millwork Engineering 03',
     category: 'Millwork',
     date: 'August 19, 2026',
-    readTime: '8 min read',
+    readTime: '11 min read',
+    wordCount: 1220,
     author: {
       name: 'Marc van der Meer',
       role: 'Master Cabinetmaker & Architect',
@@ -312,7 +372,7 @@ export const ARTICLES: Article[] = [
     featuredImage: {
       url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&fm=webp&w=1600&q=80',
       fallbackUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Full-height smoked walnut concealed storage wall with recessed shadow gap baseboard',
+      alt: 'Full-height smoked walnut flush joinery cabinets and hidden storage wall in small minimalist apartment',
       caption: 'Canal House Transformation: Full-height walnut storage wall concealing structural columns, HVAC registers, and pantry.',
       credit: 'Photography by Casper Le Fèvre',
       width: 1600,
@@ -325,97 +385,107 @@ export const ARTICLES: Article[] = [
       { name: 'Raw Cast Bronze', hex: '#634E39', material: 'Concealed edge pull insert' }
     ],
     specifications: [
-      { label: 'Door Reveal', value: '6 mm Aluminum Fry Reglet' },
-      { label: 'Pivot Hardware', value: 'FritsJurgens System M+ Concealed' },
-      { label: 'Grain Alignment', value: 'Sequenced vertical architectural match' },
-      { label: 'Acoustic Seal', value: 'Magnetic drop-down bottom drop seal' }
+      { label: 'Door Reveal', value: '6 mm Aluminum Fry Reglet profile' },
+      { label: 'Pivot Hardware', value: 'FritsJurgens System M+ Concealed Floor Pivot' },
+      { label: 'Concealed Hinges', value: 'Blum Tip-On Push-to-Open + Sugatsune HES3D' },
+      { label: 'Grain Alignment', value: 'Sequenced vertical architectural book-match' },
+      { label: 'Acoustic Seal', value: 'Magnetic drop-down bottom seal (Athmer)' }
     ],
     excerpt: 'Domestic life is chaotic: cords, appliances, coats, books, and paperwork constantly seek surface area. Minimalism survives only when storage is executed with obsessive architectural precision.',
     chapters: [
       {
-        id: 'why-flush-joinery-essential',
-        title: 'Why is flush joinery essential for domestic reduction?',
-        directAnswer: 'Flush joinery eliminates visual visual noise by integrating storage doors and portals into continuous architectural wall planes, concealing daily clutter behind precision-aligned timber surfaces.',
+        id: 'why-hidden-storage-essential-small-spaces',
+        title: 'Why are hidden storage solutions essential for small spaces?',
+        directAnswer: 'Hidden storage solutions are essential for small spaces because eliminating handles, face frames, and open clutter preserves clean horizontal sightlines, making compact rooms feel twice as spacious.',
         content: [
-          'In traditional home joinery, cabinets stand as separate boxes with protruding handles, face frames, and overlapping door lips. Each element casts harsh shadows and adds visual complexity to the room.',
-          'Flush joinery aligns every door and panel along a single flat plane. Hardware is concealed internally through push-to-open magnetic latches or integrated knife-edge edge pulls.',
-          'By transforming utilitarian storage into monolithic architectural surfaces, domestic entropy—cords, kitchen appliances, paperwork, and coats—disappears completely from view.'
+          'In urban residential architecture, the greatest luxury is not excess square footage, but unbroken visual tranquility. When a compact room contains exposed bookshelves, freestanding dressers, surface-mounted cords, and kitchen appliances, the human eye is forced to process hundreds of competing visual edges every second.',
+          'Neuro-aesthetic research indicates that this constant visual noise induces low-grade cognitive fatigue. Flush joinery cabinets and hidden storage solutions resolve this by transforming utilitarian storage into quiet architectural wall surfaces.',
+          'By aligning wardrobe doors flush with drywall, eliminating surface knobs in favor of touch-latches, and concealing appliances behind monolithic wood flitches, the room sheds its domestic chaos and assumes the spacious dignity of a serene gallery pavilion.'
         ],
         pullQuote: 'A wall that touches the floor without a shadow gap feels grounded by gravity; a wall that hovers with a shadow gap feels sculpted by thought.'
       },
       {
-        id: 'how-shadow-gap-replaces-baseboard',
-        title: 'How does a 6mm shadow gap replace traditional baseboard trim?',
-        directAnswer: 'A 6mm aluminum reglet shadow gap creates a recessed perimeter reveal at the floor line, making walls appear to hover with architectural weightlessness while eliminating bulky dust-collecting baseboards.',
+        id: 'how-to-build-invisible-cabinet-doors-flush-joinery',
+        title: 'How do you build invisible cabinet doors using flush joinery?',
+        directAnswer: 'Building invisible cabinet doors requires framing flush inset panels on the exact same plane as adjacent wall cladding, using concealed push-to-open latches, 3mm hairline shadow reveals, and continuous vertical grain matching.',
         content: [
-          'Baseboards were historically invented to conceal rough, uneven gaps where sheetrock met flooring. However, their protruding profile breaks vertical sightlines and collects unsightly dust.',
-          'In minimalist interior engineering, an extruded aluminum reveal bead (such as Fry Reglet or Trim-Tex) is embedded during drywall hanging, creating an exact 6mm by 12mm recessed channel along the perimeter.',
-          'The floor passes cleanly underneath the wall reveal. Instead of looking stuck to the floor, the vertical partitions appear to float with sculptural elegance.'
+          'The illusion of an invisible cabinet door relies on microscopic tolerances. If a door face projects even two millimeters past the surrounding wall, the resulting shadow line immediately betrays the opening to the eye.',
+          'To build true flush joinery, cabinetmakers utilize concealed aluminum sub-frames or recessed Fry Reglet drywall reveals. Rather than standard face-frame carcass construction, the millwork is built with fully recessed frameless boxes.',
+          'Touch-latch mechanical pistons (such as Blum Tip-On or Sugatsune push latches) are calibrated to release upon a feather-light press, eliminating any need for surface hardware. Around the door perimeter, a uniform 3mm to 4mm hairline shadow gap is maintained, matching the floor reveal and ceiling perimeter.'
         ],
         imageDetail: {
           url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&fm=webp&w=1200&q=80',
           caption: 'Fig. 3 — Flush pivot portal integrating flush with vertical timber wall paneling.',
-          alt: 'Full height flush pivot door blending into smoked oak wall paneling',
+          alt: 'Invisible door and concealed storage cabinets integrating seamlessly into wood paneled wall',
           width: 1200,
           height: 800,
           architectOrStudio: 'Van der Meer Architectural Joinery'
         }
       },
       {
-        id: 'how-frameless-pivot-doors-disappear',
-        title: 'How do ceiling-height frameless pivot doors disappear into wall cladding?',
-        directAnswer: 'By utilizing concealed top and bottom hydraulic pivots without visible casings or latch plates, full-height panels align flush with surrounding veneer to disguise passageways as monolithic paneling.',
+        id: 'which-hinges-work-best-flush-inset-cabinet-doors',
+        title: 'Which hinges work best for flush inset cabinet doors?',
+        directAnswer: 'Concealed 3D-adjustable European cup hinges work best for standard flush cabinetry, while SOSS invisible barrel hinges and FritsJurgens hydraulic pivot hinges are superior for heavy, ceiling-height secret portal doors.',
         content: [
-          'Standard door frames create constant visual interruptions: bulky side jambs, header trim, and stamped metal hinges puncturing the wall line.',
-          'Ceiling-height pivot doors extend from the finished floor directly to the drywall ceiling. Using heavy-duty concealed bottom pivots (such as FritsJurgens System M+), a 400kg oak door swings effortlessly with a gentle finger touch.',
-          'When closed, the door simply becomes the wall. Magnetic acoustic seals automatically drop into floor slots when latched, providing total sound isolation between spaces.'
-        ]
+          'Selecting the proper hinge hardware determines whether flush joinery remains pristine over decades of daily seasonal humidity fluctuations or sags into misaligned frustration.',
+          'There are three primary categories of concealed hinges utilized in architectural millwork:'
+        ],
+        comparisonTable: {
+          headerA: 'Hinge Hardware Category',
+          headerB: 'Engineering Characteristics & Best Use Case',
+          rows: [
+            { feature: 'Concealed European Cup Hinges (e.g. Blum Onyx / Grass Tiomos)', optionA: 'Cup mortised into back of door; hidden when door is closed', optionB: 'Best for standard cabinetry and built-in wardrobes. Features independent 3D cam adjustment (±2mm height, depth, lateral) for precision hairline alignment.' },
+            { feature: 'Invisible Mortise Hinges (e.g. SOSS / Tectus TE 240)', optionA: 'Mortised symmetrically into both door edge and jamb', optionB: 'Best for flush passage doors and secret bookcase portals. Completely hidden from both sides when closed; handles door loads up to 120 kg with zero reveal protrusion.' },
+            { feature: 'Concealed Floor & Ceiling Pivots (e.g. FritsJurgens System M+)', optionA: 'Hydraulic pivot installed top and bottom inside door core', optionB: 'Best for ceiling-height monolithic wall doors up to 500 kg. Zero floor track required; provides hydraulic soft-close, hold-open, and fingertip rotation.' }
+          ]
+        }
       },
       {
-        id: 'why-sequenced-grain-matching-critical',
-        title: 'Why is sequenced grain matching critical in minimalist cabinetry?',
-        directAnswer: 'Sequenced architectural grain matching ensures that veneer patterns flow uninterrupted across adjacent doors and drawer fronts, transforming functional utility cabinetry into a cohesive timber sculpture.',
+        id: 'room-by-room-minimalist-hidden-storage-ideas',
+        title: 'What are the best minimalist hidden storage ideas for every room?',
+        directAnswer: 'The best minimalist hidden storage ideas include floor-to-ceiling perimeter built-in wardrobes, monolithic kitchen appliance garages with pocketing bi-fold doors, and recessed under-stair storage banks.',
         content: [
-          'Nothing ruins the quiet power of minimalist millwork faster than mismatched wood veneer patterns. When cheap cabinet doors are cut haphazardly from disparate lumber batches, the wood grain stutters awkwardly across seams.',
-          'In bespoke architectural millwork, all veneers for a continuous cabinet run are sliced in direct order from a single log flitch. The natural annual rings and organic figure of the timber flow seamlessly across cabinet faces, drawer fronts, and appliance disguises.',
-          'The finished wall reads not as a collection of storage cupboards, but as a single monumental monolith of living timber.'
+          'In the bedroom, seamless built-in wardrobes should extend from the finished floor directly into ceiling plaster pockets. By finishing the doors in the exact same super-matte lacquer or lime wash paint as the walls, a six-meter wardrobe reads simply as an unbroken, tranquil wall.',
+          'In the kitchen, an appliance garage with pocketing bi-fold doors (such as Hawa Concepta hardware) allows coffee grinders, blenders, and spice carousels to be accessed instantly during morning preparation, then slid shut in three seconds to restore architectural serenity.',
+          'In entryways and living rooms, shallow 150mm vertical push-to-open recesses accommodate keys, coat hangers, audio receivers, and smart-home routers within structural wall cavities, reclaiming valuable living real estate.'
         ]
       }
     ],
     faq: [
       {
-        question: 'What is flush joinery in minimalist interior design?',
-        quickAnswer: 'Flush joinery is a cabinetmaking method where doors, drawers, and surrounding paneling sit on the exact same plane with uniform hairline reveals (typically 3mm to 6mm).',
-        fullAnswer: 'By removing overlapping door lips, face frames, and surface-mounted handles, flush joinery creates continuous architectural planes that conceal interior storage.'
+        question: 'Why are hidden storage solutions essential for small spaces?',
+        quickAnswer: 'Hidden storage conceals everyday clutter and removes visual noise, keeping small spaces feeling expansive, peaceful, and open.',
+        fullAnswer: 'By concealing handles and appliances behind flush cabinet doors, sightlines remain unobstructed, tricking the brain into perceiving compact rooms as much larger.'
       },
       {
-        question: 'How do shadow gaps prevent cracking between walls and floors?',
-        quickAnswer: 'The recessed aluminum reglet profile allows natural seasonal structural expansion without cracking drywall plaster.',
-        fullAnswer: 'Because timber subfloors and framing expand and contract with temperature and humidity shifts, the 6mm shadow gap provides a decoupled expansion joint that stays pristine.'
+        question: 'How do you build invisible cabinet doors using flush joinery?',
+        quickAnswer: 'Frame frameless cabinet boxes flush with wall surfaces, use push-to-open touch latches, maintain uniform 3mm shadow gaps, and book-match timber grain vertically.',
+        fullAnswer: 'Millimeter-precise installation using 3D-adjustable concealed hinges ensures the door plane aligns with adjacent panels, creating the look of a continuous timber wall.'
       },
       {
-        question: 'What hardware is required for frameless flush doors?',
-        quickAnswer: 'Frameless flush doors rely on concealed 3D-adjustable hinges or hydraulic floor pivots paired with magnetic latch locks.',
-        fullAnswer: 'Brands like FritsJurgens and Tectus provide heavy-duty hidden pivots and hinges that carry doors up to 500kg while allowing millimeter-precise spatial adjustment in three axes.'
+        question: 'Which hinges work best for flush inset cabinet doors?',
+        quickAnswer: 'Concealed 3D European cup hinges for standard cabinets, SOSS invisible hinges for hidden passage doors, and FritsJurgens pivots for heavy ceiling-height portals.',
+        fullAnswer: 'European cup hinges allow fine adjustment in three directions to keep hairline reveals perfectly straight over seasonal temperature and humidity changes.'
       }
     ],
-    keyTakeaway: 'Concealed storage millwork and flush joinery are not mere aesthetic luxuries; they are the architectural foundation that shields the human mind from domestic visual clutter.'
+    keyTakeaway: 'Flush joinery and hidden storage solutions are not mere aesthetic luxuries; they are the architectural foundation that shields the human mind from domestic visual clutter in compact spaces.'
   },
   {
     id: 'art-04',
     slug: 'warm-scandinavian-reduction',
     path: '/philosophy/warm-scandinavian-reduction',
-    seoTitle: 'Warm Scandinavian Reduction: Hygge & Spatial Void | KURA',
-    metaDescription: 'Discover warm Scandinavian reduction. Learn how Dinesen Douglas fir, tactile sheepskin, and low-slung luminaires create cozy minimalist interiors.',
-    mainKeyword: 'warm Scandinavian reduction',
-    relatedKeywords: ['Nordic minimalist interior', 'Dinesen Douglas fir', 'hygge minimalist design'],
-    descriptiveAnchor: 'Discover warm Scandinavian reduction and tactile Nordic interiors',
-    title: 'Warm Nordic Reduction: Reconciling Hygge with Spatial Emptiness',
+    seoTitle: 'Warm Scandinavian Interior Design: Soft Hygge Minimalism | KURA',
+    metaDescription: 'Master warm Scandinavian interior design. Learn how to combine the hygge minimalist aesthetic, soft Nordic textures, and warm lighting to cure cold spaces.',
+    mainKeyword: 'warm scandinavian interior design',
+    relatedKeywords: ['danish pastel room decor', 'hygge minimalist aesthetic', 'nordic minimalist home', 'soft minimalism scandinavian bedroom'],
+    descriptiveAnchor: 'Master warm Scandinavian interior design and soft hygge minimalism',
+    title: 'Warm Scandinavian Reduction: Reconciling Hygge with Spatial Emptiness',
     subtitle: 'How Nordic architects harness pale Douglas fir, sheepskin texture, and low-slung luminaires to build warm sanctuaries without clutter.',
     kicker: 'Regional Dialect 04',
     category: 'Philosophy',
     date: 'July 11, 2026',
-    readTime: '6 min read',
+    readTime: '10 min read',
+    wordCount: 1120,
     author: {
       name: 'Astrid Lindholm',
       role: 'Interior Stylist & Architecture Author',
@@ -424,7 +494,7 @@ export const ARTICLES: Article[] = [
     featuredImage: {
       url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1600&q=80',
       fallbackUrl: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Scandinavian minimalist living room with pale Douglas fir flooring and warm linen drapery',
+      alt: 'Warm Scandinavian interior design featuring pale soaped Douglas fir timber, soft linen curtains, and hygge textures',
       caption: 'Nørrebro Residence: High ceilings, bleached solid Douglas fir planks, and diffuse northern daylight.',
       credit: 'Photography by Jonas Bjerre-Poulson / Norm Architects',
       width: 1600,
@@ -437,41 +507,75 @@ export const ARTICLES: Article[] = [
       { name: 'Smoked Smudge Glass', hex: '#8C857B', material: 'Handblown pendant diffusers' }
     ],
     specifications: [
-      { label: 'Flooring Species', value: 'Dinesen Douglas Fir (450mm width)' },
-      { label: 'Lye Formulation', value: 'Traditional soap-and-lye scrubbing' },
-      { label: 'Window Dressings', value: 'Floor-to-ceiling sheer linen voiles' },
-      { label: 'Daylight Factor', value: 'DF > 3.8% in living perimeter' }
+      { label: 'Flooring Species', value: 'Dinesen Douglas Fir (450mm wide solid planks)' },
+      { label: 'Lye Formulation', value: 'Traditional white soap-and-lye scrubbing ritual' },
+      { label: 'Window Dressings', value: 'Floor-to-ceiling unbleached sheer linen voiles' },
+      { label: 'Lighting Temperature', value: '2700K Warm White with 2100K nocturnal dimming' },
+      { label: 'Daylight Factor', value: 'DF > 3.8% across living and sleeping perimeter' }
     ],
     excerpt: 'In the harsh northern latitudes where winter sun sets by three in the afternoon, minimalism cannot afford to be icy or aloof. Danish reductionism achieves emotional warmth through material softness.',
     chapters: [
       {
-        id: 'how-nordic-designers-balance-warmth-and-void',
-        title: 'How do Nordic designers balance hygge with spatial reduction?',
-        directAnswer: 'Nordic reductionism pairs austere architectural geometries with organic tactile textiles, soap-scrubbed Douglas fir timbers, and intimate low-level lighting pools.',
+        id: 'what-is-warm-scandinavian-interior-design',
+        title: 'What is warm Scandinavian interior design?',
+        directAnswer: 'Warm Scandinavian interior design is a human-centered aesthetic that softens modern architectural reductionism through pale organic woods, tactile wool textiles, muted earth palettes, and cozy ambient hygge illumination.',
         content: [
-          'Walking across a lacquered oak floor feels synthetic—your foot is separated from the timber by a thin film of polyurethane. Scandinavian architects favor the traditional soap treatment: scrubbing solid Douglas fir boards with white soap flakes.',
-          'The wood pores remain open, retaining moisture and exhaling a subtle scent of pine forest. Over decades, repeated soaping builds a velvety, chalk-white patina that stays warm even during sub-zero winters.'
+          'For decades, minimalism suffered from a reputation of sterile severity: cold glass boxes, glossy chrome tubular chairs, and harsh white drywall that felt more like commercial medical clinics than restful sanctuaries.',
+          'Warm Scandinavian interior design emerged as the compassionate antidote. Originating in Denmark, Sweden, and Norway, this philosophy acknowledges that human beings require tactile comfort, especially in cold winter climates where people spend up to ninety percent of their lives indoors.',
+          'Instead of subtracting warmth, Nordic architects practice reduction with soul. Walls are finished in warm limestone and chalk; synthetic carpets are replaced by solid lye-washed fir floorboards; and cold ceiling pot-lights give way to intimate pools of ambient lamp glow.'
         ],
         pullQuote: 'Minimalism in cold climates is an act of survival: you gather only that which provides true comfort, and you give it room to breathe.'
       },
       {
-        id: 'why-distribute-pools-of-low-light',
-        title: 'Why distribute pools of low light instead of ceiling downlights?',
-        directAnswer: 'Low-slung task lamps and table lanterns create intimate micro-environments that mirror the primal comfort of the ancestral hearth without creating ceiling glare.',
+        id: 'how-to-make-minimalist-room-feel-warm-inviting',
+        title: 'How do you make a minimalist room feel warm and inviting?',
+        directAnswer: 'You make a minimalist room feel warm by introducing high-tactile natural textures—such as bouclé wool, unbleached linen, and white-soaped oak—illuminated by low-slung 2700K lighting pools rather than stark overhead fixtures.',
         content: [
-          'Rather than blasting a room with uniform recessed ceiling lights, Nordic designers distribute 4 to 6 low-wattage accent points. A paper lantern suspended 60 centimeters above the coffee table, a reading brass wand beside the armchair, a candle on a granite windowsill.',
-          'These pools of warm, low-slung light carve intimate micro-environments inside an otherwise open, airy floor plan, evoking the primal comfort of the ancestral hearth.'
+          'The secret to making a reductionist space feel inviting without reintroducing clutter lies in tactile layering. Rather than filling negative space with decorative tchotchkes, you increase the tactile density of the essential architectural elements.',
+          'Begin with untreated or soaped pale timber. When solid European white oak or Douglas fir is scrubbed with white soap flakes rather than sealed under polyurethane lacquer, the open wood pores remain accessible to bare feet, radiating organic warmth.',
+          'Next, layer soft acoustic textiles: an oversized hand-loomed New Zealand wool loop rug, draped Gotland curly sheepskin over a minimal wood armchair, and floor-to-ceiling sheer linen drapes that catch winter twilight drafts.',
+          'Finally, replace harsh ceiling downlights with a constellation of low-elevation luminaires set to 2700K warm white. A paper lantern hovering 60 centimeters above the coffee table and an unlacquered brass picture light create golden pools of warmth against quiet walls.'
+        ]
+      },
+      {
+        id: 'how-to-design-soft-minimalism-scandinavian-bedroom',
+        title: 'How do you design a soft minimalism Scandinavian bedroom?',
+        directAnswer: 'To design a soft minimalism Scandinavian bedroom, anchor the room with a low platform bed in untreated pale timber, layered washed European linen bedding in oatmeal or chalk tones, and uncluttered bedside surfaces.',
+        content: [
+          'The bedroom is the sacred epicentre of restorative dwelling. In a soft minimalism Nordic bedroom, every element is chosen to promote biological down-regulation before sleep.',
+          'Select a low-profile platform bed frame crafted from solid ash or lye-treated pine with integrated headboard niches instead of bulky standalone nightstands. Dress the mattress in pre-washed French or Belgian linen sheets in layered oatmeal, chalk, and soft stone tones.',
+          'Ditch synthetic duvets for organic wool or down comforters. A solitary ceramic pendant lamp cast in biscuit porcelain hangs on one side of the bed, casting a soothing, glare-free nocturnal glow across textured lime-washed walls.'
+        ]
+      },
+      {
+        id: 'danish-hygge-interior-design-tips-modern-homes',
+        title: 'What are essential Danish hygge interior design tips for modern homes?',
+        directAnswer: 'Essential Danish hygge tips include carving intimate reading corners (hyggekrog), scattering low-level warm pools of light, celebrating negative space, and introducing subtle, desaturated Danish pastel accents like sage or dusty apricot.',
+        content: [
+          'Hygge (the Danish concept of cozy contentment and kinship) is often mischaracterized as simply burning candles and accumulating clutter. In architectural practice, true hygge is the art of creating spatial intimacy inside an uncluttered home.',
+          'Carve out a dedicated hyggekrog (cozy corner)—a deep cushioned window seat framing rain against glass, accompanied by a cashmere throw and a warm reading sconce.',
+          'To introduce visual charm without breaking minimalist discipline, introduce subtle desaturated Danish pastels: a dusty eucalyptus sage ceramic vase, an unbleached linen pillow in pale butter, or a faded terracotta bowl. These gentle hues evoke northern coastal light without visually overwhelming the serene spatial volume.'
         ]
       }
     ],
     faq: [
       {
-        question: 'What is warm Scandinavian minimalism?',
-        quickAnswer: 'Warm Scandinavian minimalism is a design philosophy that combines uncluttered architectural layouts with natural wood, sheepskin textiles, and soft lighting.',
-        fullAnswer: 'Unlike clinical modernism, Nordic minimalism prioritizes tactile comfort (hygge) while maintaining rigorous spatial clarity and generous negative space.'
+        question: 'What is warm Scandinavian interior design?',
+        quickAnswer: 'Warm Scandinavian design combines modern minimalism with tactile natural materials, light woods, cozy hygge textiles, and warm ambient lighting.',
+        fullAnswer: 'Unlike cold clinical modernism, Nordic minimalism creates comforting, welcoming living spaces tailored to human well-being and natural daylight.'
+      },
+      {
+        question: 'How do you make a minimalist room feel warm?',
+        quickAnswer: 'Layer organic textures like soaped wood, bouclé, and linen, and distribute low-slung 2700K ambient light sources throughout the room.',
+        fullAnswer: 'By focusing on material touch rather than adding more objects, a minimalist room gains comforting depth and acoustic softness.'
+      },
+      {
+        question: 'What is the role of hygge in Nordic minimalist homes?',
+        quickAnswer: 'Hygge introduces soul and emotional comfort to reductionist spaces through cozy reading nooks, gentle candlelight, and natural textiles.',
+        fullAnswer: 'Hygge ensures that spatial reduction serves human happiness, transforming empty architecture into a nurturing domestic sanctuary.'
       }
     ],
-    keyTakeaway: 'Warm Scandinavian minimalism is proof that spatial reduction does not require emotional austerity. When paired with natural textiles and ambient lighting, empty space feels like a protective sanctuary.'
+    keyTakeaway: 'Warm Scandinavian reduction is proof that spatial clarity does not require emotional chill: by pairing pale timbers, hygge wools, and intimate light pools, empty space becomes a loving shelter.'
   },
   {
     id: 'art-05',
@@ -488,6 +592,7 @@ export const ARTICLES: Article[] = [
     category: 'Architecture',
     date: 'June 22, 2026',
     readTime: '6 min read',
+    wordCount: 780,
     author: {
       name: 'Julian Theron',
       role: 'Curator & Spatial Critic',
@@ -551,6 +656,7 @@ export const ARTICLES: Article[] = [
     category: 'Lighting',
     date: 'May 30, 2026',
     readTime: '7 min read',
+    wordCount: 820,
     author: {
       name: 'Sora Takahashi',
       role: 'Architectural Lighting Consultant',
@@ -614,6 +720,7 @@ export const ARTICLES: Article[] = [
     category: 'Millwork',
     date: 'April 18, 2026',
     readTime: '7 min read',
+    wordCount: 840,
     author: {
       name: 'Matteo Bellini',
       role: 'Industrial Designer & Kitchen Architect',
@@ -677,6 +784,7 @@ export const ARTICLES: Article[] = [
     category: 'Materials',
     date: 'March 25, 2026',
     readTime: '5 min read',
+    wordCount: 790,
     author: {
       name: 'Dr. Henrik Vane',
       role: 'Architectural Psychoacoustician',
@@ -740,6 +848,7 @@ export const ARTICLES: Article[] = [
     category: 'Philosophy',
     date: 'February 17, 2026',
     readTime: '6 min read',
+    wordCount: 810,
     author: {
       name: 'Mei Lin-Benoit',
       role: 'Landscape & Interior Architect',
@@ -803,6 +912,7 @@ export const ARTICLES: Article[] = [
     category: 'Philosophy',
     date: 'January 09, 2026',
     readTime: '8 min read',
+    wordCount: 830,
     author: {
       name: 'Kasper Dahl',
       role: 'Industrial Archivist & Design Critic',

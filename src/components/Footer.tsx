@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onNavigate, on
     }
   };
 
-  const pillarArticles = ARTICLES.slice(0, 3);
+  const pillarArticles = ARTICLES.slice(0, 4);
 
   return (
     <footer className="border-t border-[#E7E2DA] bg-[#F5EFE6]/60 pt-16 pb-12 text-[#4E4842]">
@@ -37,17 +37,17 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onNavigate, on
               K U R A
             </span>
             <p className="text-sm text-[#655F58] leading-relaxed max-w-sm mb-6 font-light">
-              A curated quarterly journal examining the tectonic boundaries of warm minimalist architecture, spatial reductionism, and tactile materials.
+              A curated journal exploring Japandi interior design architecture, wabi sabi house aesthetics, soft minimalism, and organic modern materials.
             </p>
             <div className="text-xs tracking-wider uppercase text-[#8C6D53] font-semibold">
-              Issue IV · Dedicated Spatial Studies
+              Vol. IV · Long-Form Monograph Edition
             </div>
           </div>
 
           {/* Core Pillar Studies: Descriptive Context-Specific Internal Links (SEO Requirement) (4 cols) */}
           <div className="md:col-span-4">
             <div className="text-xs uppercase tracking-widest font-semibold text-[#191716] mb-4">
-              Key Monographies
+              Essential Architectural Studies
             </div>
             <ul className="space-y-3 text-xs text-[#655F58]">
               {pillarArticles.map((art) => (
@@ -77,7 +77,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory, onNavigate, on
               Curator’s Dispatch
             </div>
             <p className="text-xs text-[#655F58] leading-relaxed mb-4 font-light">
-              Receive our monthly deep-dive monograph on spatial architecture and tactile materials. Strictly no commercial promotions.
+              Receive our monthly deep-dive monograph on Japandi interior design architecture and tactile materials. Strictly no commercial promotions.
             </p>
 
             <form onSubmit={handleSubmit} className="flex gap-2">

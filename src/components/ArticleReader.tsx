@@ -9,7 +9,10 @@ import {
   Volume2,
   Layers,
   ArrowRight,
-  HelpCircle
+  HelpCircle,
+  CheckCircle2,
+  XCircle,
+  FileText
 } from 'lucide-react';
 
 interface ArticleReaderProps {
@@ -161,15 +164,17 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
         </nav>
 
         {/* Unboxed Metadata (Zero-Pill Discipline) */}
-        <div className="flex items-center gap-2 text-xs text-[#7A746C] mb-4">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-[#7A746C] mb-4">
           <span className="font-semibold text-[#8C6D53] tracking-widest uppercase">{article.kicker}</span>
           <span aria-hidden="true" className="text-[#CCC4B9]">·</span>
           <span>{article.readTime}</span>
           <span aria-hidden="true" className="text-[#CCC4B9]">·</span>
+          <span>{article.wordCount} words</span>
+          <span aria-hidden="true" className="text-[#CCC4B9]">·</span>
           <span>{article.date}</span>
         </div>
 
-        {/* The Single Exact <h1> for this Page */}
+        {/* The Single Exact <h1> for this Page (Strict SEO Rule) */}
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] font-normal text-[#191716] tracking-tight mb-6 text-balance">
           {article.title}
         </h1>
@@ -190,9 +195,15 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-[#7A746C]">
-            <Volume2 className="w-3.5 h-3.5 text-[#8C6D53]" />
-            <span>Estimated listening: {article.readTime}</span>
+          <div className="flex items-center gap-4 text-[#7A746C]">
+            <div className="flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-[#8C6D53]" />
+              <span>Full Long-Form Study</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Volume2 className="w-3.5 h-3.5 text-[#8C6D53]" />
+              <span>{article.readTime}</span>
+            </div>
           </div>
         </div>
 
@@ -236,7 +247,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
           </button>
         </div>
 
-        {/* Elegant Figure Caption with EXIF/Architect credit */}
+        {/* Figure Caption with EXIF/Architect credit */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-3 px-1 text-xs">
           <p className="font-serif italic text-[#655F58]">
             {article.featuredImage.caption}
@@ -261,15 +272,15 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
 
             {/* Direct Concise Answer Sentence (AEO / Answer Engine Optimization Snippet) */}
             {chapter.directAnswer && (
-              <div className="p-4 bg-[#F2ECE3] border-l-2 border-[#8C6D53] text-[#191716] font-medium text-sm leading-relaxed mb-6 rounded-xs">
+              <div className="p-4 bg-[#F2ECE3] border-l-2 border-[#8C6D53] text-[#191716] font-medium text-sm leading-relaxed mb-6 rounded-xs shadow-2xs">
                 <span className="text-xs uppercase tracking-wider text-[#8C6D53] block mb-1 font-semibold">
-                  Key Takeaway
+                  Quick Answer / Executive Summary
                 </span>
                 {chapter.directAnswer}
               </div>
             )}
 
-            {/* Paragraphs with optional drop cap on very first paragraph */}
+            {/* Expanded Paragraphs with Drop Cap on First Chapter */}
             {chapter.content.map((paragraph, pIdx) => {
               const isFirstEver = idx === 0 && pIdx === 0;
               return (
@@ -287,6 +298,110 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
                 </p>
               );
             })}
+
+            {/* Comparison Table if Present (e.g. Limewash vs Microcement, Cabinet Hinges) */}
+            {chapter.comparisonTable && (
+              <div className="my-8 overflow-x-auto border border-[#E7E2DA] rounded-sm bg-[#FAF8F5]">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="bg-[#F0EAE2] border-b border-[#E7E2DA]">
+                      <th className="p-3.5 font-semibold text-[#191716] uppercase tracking-wider w-1/4">
+                        Criterion
+                      </th>
+                      <th className="p-3.5 font-semibold text-[#8C6D53] uppercase tracking-wider w-3/8">
+                        {chapter.comparisonTable.headerA}
+                      </th>
+                      <th className="p-3.5 font-semibold text-[#191716] uppercase tracking-wider w-3/8">
+                        {chapter.comparisonTable.headerB}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#EAE4DC]">
+                    {chapter.comparisonTable.rows.map((row, rIdx) => (
+                      <tr key={rIdx} className="hover:bg-[#F8F5F0] transition-colors">
+                        <td className="p-3.5 font-medium text-[#191716] align-top bg-[#FBF9F6]">
+                          {row.feature}
+                        </td>
+                        <td className="p-3.5 text-[#4E4842] align-top leading-relaxed">
+                          {row.optionA}
+                        </td>
+                        <td className="p-3.5 text-[#4E4842] align-top leading-relaxed">
+                          {row.optionB}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Pros and Cons Box if Present (e.g. Yakisugi siding) */}
+            {chapter.prosAndCons && (
+              <div className="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 bg-[#F4F8F4] border border-[#D0E2D0] rounded-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+                    <h3 className="text-xs uppercase tracking-wider font-semibold text-emerald-900">
+                      Architectural Advantages (Pros)
+                    </h3>
+                  </div>
+                  <ul className="space-y-2 text-xs text-[#2A442A]">
+                    {chapter.prosAndCons.pros.map((pro, prIdx) => (
+                      <li key={prIdx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-emerald-600 font-bold">•</span>
+                        <span>{pro}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-5 bg-[#FAF4F4] border border-[#E8D0D0] rounded-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <XCircle className="w-4 h-4 text-amber-800" />
+                    <h3 className="text-xs uppercase tracking-wider font-semibold text-amber-950">
+                      Considerations & Tradeoffs (Cons)
+                    </h3>
+                  </div>
+                  <ul className="space-y-2 text-xs text-[#4A2D2D]">
+                    {chapter.prosAndCons.cons.map((con, cnIdx) => (
+                      <li key={cnIdx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-700 font-bold">•</span>
+                        <span>{con}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* Step-by-Step Guide if Present (e.g. Limewash application for beginners) */}
+            {chapter.stepList && (
+              <div className="my-8 space-y-4">
+                <h3 className="text-xs uppercase tracking-widest font-semibold text-[#8C6D53]">
+                  Step-by-Step Application Protocol
+                </h3>
+                <div className="space-y-3">
+                  {chapter.stepList.map((item) => (
+                    <div
+                      key={item.step}
+                      className="p-4 bg-[#FAF8F5] border border-[#E7E2DA] rounded-sm flex gap-4 items-start"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-[#191716] text-[#FAF8F5] flex items-center justify-center font-mono text-xs font-semibold shrink-0">
+                        {item.step}
+                      </div>
+                      <div>
+                        <h4 className="font-serif text-base font-medium text-[#191716] mb-1">
+                          {item.title}
+                        </h4>
+                        <p className="text-xs text-[#59534C] leading-relaxed font-light">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Editorial Pull Quote if present */}
             {chapter.pullQuote && (
@@ -358,14 +473,17 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
               {article.faq.map((item, fIdx) => (
                 <div
                   key={fIdx}
-                  className="p-5 bg-[#FAF8F5] border border-[#E7E2DA] rounded-sm"
+                  className="p-5 bg-[#FAF8F5] border border-[#E7E2DA] rounded-sm shadow-2xs"
                 >
                   <h3 className="font-serif text-lg font-medium text-[#191716] mb-2">
                     {item.question}
                   </h3>
-                  <p className="text-sm text-[#191716] font-medium mb-2 leading-relaxed bg-[#F4EFE6] p-3 rounded-xs border-l-2 border-[#8C6D53]">
+                  <div className="text-sm text-[#191716] font-medium mb-2 leading-relaxed bg-[#F4EFE6] p-3 rounded-xs border-l-2 border-[#8C6D53]">
+                    <span className="text-[11px] uppercase tracking-wider text-[#8C6D53] block mb-0.5 font-bold">
+                      Direct Answer
+                    </span>
                     {item.quickAnswer}
-                  </p>
+                  </div>
                   <p className="text-sm text-[#59534C] leading-relaxed font-light">
                     {item.fullAnswer}
                   </p>
