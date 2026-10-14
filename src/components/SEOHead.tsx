@@ -68,6 +68,14 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
     setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
     setMeta('meta[property="og:type"]', 'property', 'og:type', ogType);
     setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
+    setMeta('meta[property="og:image:width"]', 'property', 'og:image:width', '1600');
+    setMeta('meta[property="og:image:height"]', 'property', 'og:image:height', '900');
+    setMeta(
+      'meta[property="og:image:alt"]',
+      'property',
+      'og:image:alt',
+      article ? article.featuredImage.alt : 'Japandi Interior Design Architecture'
+    );
     setMeta('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
 
     // Twitter Tags
@@ -96,7 +104,10 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
           description: article.metaDescription,
           url: canonicalUrl,
           datePublished: '2026-10-01T08:00:00+00:00',
-          dateModified: '2026-10-09T12:00:00+00:00',
+          dateModified: '2026-10-14T08:00:00+00:00',
+          wordCount: article.wordCount || 1000,
+          articleSection: article.category,
+          inLanguage: 'en-US',
           author: {
             '@type': 'Person',
             name: article.author.name,
@@ -108,7 +119,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
             url: SITE_URL,
             logo: {
               '@type': 'ImageObject',
-              url: `${SITE_URL}/favicon.ico`,
+              url: `${SITE_URL}/favicon.svg`,
             },
           },
           image: [article.featuredImage.url],

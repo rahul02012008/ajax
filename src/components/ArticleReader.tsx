@@ -78,11 +78,12 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
     .slice(0, 2);
 
   return (
-    <article className="min-h-screen bg-[#FAF8F5] pb-24">
-      {/* Top Reading Progress Bar */}
-      <div
-        className="fixed top-0 left-0 right-0 h-1 bg-[#8C6D53] z-50 transition-all duration-150 ease-out"
-        style={{ width: `${readingProgress}%` }}
+    <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
+      <article className="min-h-screen bg-[#FAF8F5] pb-24">
+        {/* Top Reading Progress Bar */}
+        <div
+          className="fixed top-0 left-0 right-0 h-1 bg-[#8C6D53] z-50 transition-all duration-150 ease-out"
+          style={{ width: `${readingProgress}%` }}
         role="progressbar"
         aria-valuenow={readingProgress}
         aria-valuemin={0}
@@ -632,6 +633,7 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
         </div>
       </section>
 
-    </article>
+      </article>
+    </main>
   );
 };

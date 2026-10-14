@@ -1,0 +1,8 @@
+# Robots.txt for KURA Architectural Journal
+# https://kura-design.vercel.app
+
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap for Google, Bing, DuckDuckGo, and other search engines
+Sitemap: https://kura-design.vercel.app/sitemap.xml

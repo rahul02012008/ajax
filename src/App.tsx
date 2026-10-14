@@ -200,7 +200,7 @@ export default function App() {
           onOpenLightbox={handleOpenLightbox}
         />
       ) : (
-        <main className="flex-1">
+        <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
           {/* Main Homepage Header Banner: Exactly ONE h1 on Homepage (SEO Rule) */}
           <div className="border-b border-[#E7E2DA] bg-[#FAF8F5] pt-12 pb-8">
             <div className="max-w-7xl mx-auto px-6">

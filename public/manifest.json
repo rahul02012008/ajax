@@ -1,0 +1,17 @@
+{
+  "name": "KURA — Japandi Interior Design Architecture",
+  "short_name": "KURA",
+  "description": "A curated architectural publication featuring in-depth studies on Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#FAF8F5",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
