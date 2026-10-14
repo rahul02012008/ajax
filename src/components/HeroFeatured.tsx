@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Article } from '../data/articles';
 import { ArrowRight, Bookmark, Maximize2 } from 'lucide-react';
+import { getResponsiveImageSrcSet } from '../utils/seoImage';
 
 interface HeroFeaturedProps {
   article: Article;
@@ -115,10 +116,14 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               {!imgFailed ? (
                 <img
                   src={imgSrc}
+                  srcSet={getResponsiveImageSrcSet(imgSrc) || undefined}
+                  sizes="(max-width: 1024px) 100vw, 58vw"
                   alt={article.featuredImage.alt}
                   width={article.featuredImage.width || 1600}
                   height={article.featuredImage.height || 900}
                   loading="eager"
+                  // @ts-expect-error React 19 / DOM supports fetchPriority
+                  fetchPriority="high"
                   decoding="async"
                   referrerPolicy="no-referrer"
                   onError={() => {

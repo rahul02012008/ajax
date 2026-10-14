@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Article } from '../data/articles';
 import { ArrowUpRight, Bookmark, Maximize2 } from 'lucide-react';
+import { getResponsiveImageSrcSet } from '../utils/seoImage';
 
 interface ArticleCardProps {
   article: Article;
@@ -24,6 +25,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
   // Natural editorial numbering format (e.g. 02, 03 per constitution)
   const editorialIndex = String(index + 1).padStart(2, '0');
+  const imageSrcSet = getResponsiveImageSrcSet(imgSrc);
 
   return (
     <article className="group flex flex-col justify-between bg-[#FAF8F5] border border-[#E7E2DA] hover:border-[#D5CDC2] transition-all duration-300 rounded-sm overflow-hidden p-6">
@@ -34,6 +36,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           {!imgFailed ? (
             <img
               src={imgSrc}
+              srcSet={imageSrcSet || undefined}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
               alt={article.featuredImage.alt}
               width={article.featuredImage.width || 1200}
               height={article.featuredImage.height || 900}

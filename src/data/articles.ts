@@ -110,8 +110,8 @@ export const ARTICLES: Article[] = [
       location: 'Kyoto, Japan'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&fm=webp&w=1600&q=80',
+      url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&fm=webp&w=1600&q=75',
       alt: 'Modern Japanese machiya interior with yakisugi charred wood beams, paper shoji screens, and woven tatami mats',
       caption: 'Kyoto Machiya Pavilion: Interplay between natural cedar posts, shoji translucency, and the quiet shadow line.',
       credit: 'Photography by Hiroshi Tanaka / Atelier Mu',
@@ -177,7 +177,7 @@ export const ARTICLES: Article[] = [
           'To style a contemporary tatami space without falling into clutter, specify borderless square mats (Ryukyu tatami). Arranged in an alternating checkerboard weave, the light reflects differently off adjacent squares, creating optical depth. Keep furniture low: a solid hinoki low tea table (chabudai), floor cushions (zafuton) upholstered in natural linen, and recessed alcove displays provide an acoustic hush that drops interior reverberation to monastery levels.'
         ],
         imageDetail: {
-          url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&fit=crop&fm=webp&w=1200&q=80',
+          url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&fit=crop&fm=webp&w=1200&q=75',
           caption: 'Fig. 1 — Subdued tatami room facing an interior courtyard with raked pebbles and moss.',
           alt: 'Subdued tatami room with raked stone courtyard garden in modern Japanese machiya townhouse',
           width: 1200,
@@ -237,8 +237,8 @@ export const ARTICLES: Article[] = [
       location: 'Antwerp, Belgium'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&fm=webp&w=1600&q=80',
+      url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&fm=webp&w=1600&q=75',
       alt: 'Tactile minimalist living room featuring limewash walls and seamless microcement flooring in soft neutral tones',
       caption: 'Antwerp Penthouse: Hand-applied slaked lime plaster creating organic light gradation across the south-facing living pavilion.',
       credit: 'Photography by Frederik Vercruysse',
@@ -310,7 +310,7 @@ export const ARTICLES: Article[] = [
           'This clear polyurethane barrier penetrates deep into the mineral pores, creating an impervious shield resistant to soap scum, shampoos, hard water, and temperature swings. Because the surface is continuous, water cascades smoothly into linear floor drains with zero resistance.'
         ],
         imageDetail: {
-          url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1200&q=80',
+          url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1200&q=75',
           caption: 'Fig. 2 — Seamless transition between microcement floor and raw linen upholstery.',
           alt: 'Seamless microcement wet room floor and wall transition in minimalist bathroom',
           width: 1200,
@@ -370,8 +370,8 @@ export const ARTICLES: Article[] = [
       location: 'Amsterdam, Netherlands'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&fm=webp&w=1600&q=80',
+      url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&fm=webp&w=1600&q=75',
       alt: 'Full-height smoked walnut flush joinery cabinets and hidden storage wall in small minimalist apartment',
       caption: 'Canal House Transformation: Full-height walnut storage wall concealing structural columns, HVAC registers, and pantry.',
       credit: 'Photography by Casper Le Fèvre',
@@ -414,7 +414,7 @@ export const ARTICLES: Article[] = [
           'Touch-latch mechanical pistons (such as Blum Tip-On or Sugatsune push latches) are calibrated to release upon a feather-light press, eliminating any need for surface hardware. Around the door perimeter, a uniform 3mm to 4mm hairline shadow gap is maintained, matching the floor reveal and ceiling perimeter.'
         ],
         imageDetail: {
-          url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&fm=webp&w=1200&q=80',
+          url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&fm=webp&w=1200&q=75',
           caption: 'Fig. 3 — Flush pivot portal integrating flush with vertical timber wall paneling.',
           alt: 'Invisible door and concealed storage cabinets integrating seamlessly into wood paneled wall',
           width: 1200,
@@ -492,8 +492,8 @@ export const ARTICLES: Article[] = [
       location: 'Copenhagen, Denmark'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&fm=webp&w=1600&q=80',
+      url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&fm=webp&w=1600&q=75',
       alt: 'Warm Scandinavian interior design featuring pale soaped Douglas fir timber, soft linen curtains, and hygge textures',
       caption: 'Nørrebro Residence: High ceilings, bleached solid Douglas fir planks, and diffuse northern daylight.',
       credit: 'Photography by Jonas Bjerre-Poulson / Norm Architects',
@@ -582,7 +582,7 @@ export const ARTICLES: Article[] = [
     slug: 'sculptural-geometry-single-object',
     path: '/architecture/sculptural-geometry-single-object',
     seoTitle: 'Sculptural Geometry: Single-Object Spaces & Void | KURA',
-    metaDescription: 'Explore sculptural geometry in minimalist architecture. Learn how a single monolithic object charges empty space with curatorial dignity.',
+    metaDescription: 'Master sculptural geometry in minimalist spaces. Learn how a solitary design artifact and curated voids transform empty architectural rooms with serene dignity.',
     mainKeyword: 'sculptural geometry minimalist space',
     relatedKeywords: ['single object architecture', 'curated voids', 'spatial tension'],
     descriptiveAnchor: 'Examine sculptural geometry and single-object void spaces',
@@ -599,9 +599,9 @@ export const ARTICLES: Article[] = [
       location: 'Basel, Switzerland'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Gallery-like concrete room anchored by a solitary monolithic bronze daybed',
+      url: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Sculptural geometry in minimalist architecture featuring a gallery-like concrete room anchored by a solitary patinated bronze daybed',
       caption: 'The Basel Pavilion: An 80-square-meter concrete gallery anchored solely by a patinated bronze daybed.',
       credit: 'Photography by Rory Gardiner',
       width: 1600,
@@ -646,7 +646,7 @@ export const ARTICLES: Article[] = [
     slug: 'light-as-material-apertures',
     path: '/lighting/light-as-material-apertures',
     seoTitle: 'Light as Material: Architectural Apertures & Shadow | KURA',
-    metaDescription: 'Master daylight in minimalist interiors. Learn how slit apertures, wall grazes, and circadian shadow design create tranquil living spaces.',
+    metaDescription: 'Harness light as material in minimalist interiors. Master architectural slit apertures, shadow line design, and raking daylight to sculpt serene living spaces.',
     mainKeyword: 'light as material architecture',
     relatedKeywords: ['architectural apertures', 'shadow design Tanizaki', 'minimalist wall wash'],
     descriptiveAnchor: 'Understand architectural apertures, lightwells, and shadow design',
@@ -663,9 +663,9 @@ export const ARTICLES: Article[] = [
       location: 'Tokyo & Zürich'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Dramatic natural daylight raking across a minimalist board-formed concrete hallway',
+      url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Architectural light slit aperture casting raking natural daylight across textured minimalist concrete wall',
       caption: 'The Solitary Shaft: A continuous ceiling slit reveals raking morning light across textured stone masonry.',
       credit: 'Photography by Simone Bossi',
       width: 1600,
@@ -710,7 +710,7 @@ export const ARTICLES: Article[] = [
     slug: 'monolithic-stone-kitchen',
     path: '/millwork/monolithic-stone-kitchen',
     seoTitle: 'Monolithic Stone Kitchen: Honed Islands & Hidden Cooking | KURA',
-    metaDescription: 'Explore the monolithic stone kitchen. Discover how invisible induction, honed Pietra di Cardoso, and pocket doors create an architectural altar.',
+    metaDescription: 'Design the monolithic stone kitchen. Learn how invisible induction cooktops, honed natural stone blocks, and concealed pocket doors eliminate culinary clutter.',
     mainKeyword: 'monolithic stone kitchen',
     relatedKeywords: ['invisible induction island', 'pocket door kitchen', 'honed stone countertop'],
     descriptiveAnchor: 'Explore monolithic stone islands with invisible sub-surface induction',
@@ -727,9 +727,9 @@ export const ARTICLES: Article[] = [
       location: 'Milan, Italy'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Clean modern minimalist kitchen island in monolithic stone with concealed induction hob',
+      url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Monolithic stone kitchen island in honed Pietra di Cardoso with invisible sub-surface induction cooktop',
       caption: 'Via Solferino Apartment: A 4.2-meter cantilevered Pietra di Cardoso stone island with invisible under-counter induction.',
       credit: 'Photography by Giorgio Possenti',
       width: 1600,
@@ -774,7 +774,7 @@ export const ARTICLES: Article[] = [
     slug: 'acoustic-serenity-slatted-oak',
     path: '/materials/acoustic-serenity-slatted-oak',
     seoTitle: 'Acoustic Serenity: Slatted Oak & Noise Damping | KURA',
-    metaDescription: 'Eliminate echo in minimalist rooms. Discover how slatted white oak panels, recycled PET felt, and bouclé textiles deliver acoustic calm.',
+    metaDescription: 'Achieve acoustic serenity in minimalist interiors. Learn how slatted white oak panels, recycled PET acoustic felt, and bouclé fabrics eliminate flutter echo.',
     mainKeyword: 'slatted oak acoustic panels',
     relatedKeywords: ['minimalist acoustic damping', 'bouclé noise reduction', 'architectural soundproofing'],
     descriptiveAnchor: 'Read our analysis of slatted oak acoustic panels and decibel damping',
@@ -791,9 +791,9 @@ export const ARTICLES: Article[] = [
       location: 'Stockholm, Sweden'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Minimalist living room with textured wood acoustic wall panels and soft bouclé upholstered furniture',
+      url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Acoustic serenity interior with slatted white oak wall panels, sound damping felt, and soft bouclé lounge chair',
       caption: 'The Listening Haven: Full-height micro-perforated slatted white oak panels backed with recycled acoustic felt.',
       credit: 'Photography by Erik Lefvander',
       width: 1600,
@@ -838,7 +838,7 @@ export const ARTICLES: Article[] = [
     slug: 'tokonoma-biophilic-reduction',
     path: '/philosophy/tokonoma-biophilic-reduction',
     seoTitle: 'The Tokonoma Principle: Biophilic Reduction in Design | KURA',
-    metaDescription: 'Discover the Tokonoma principle. Learn why a single pruned branch in an intentional alcove commands deeper mindfulness than crowded houseplants.',
+    metaDescription: 'Master the Tokonoma principle of biophilic reduction. Learn why a solitary pruned branch in an intentional alcove inspires deeper peace than houseplant clutter.',
     mainKeyword: 'tokonoma principle biophilic reduction',
     relatedKeywords: ['ikebana interior design', 'wabi-sabi botanical curation', 'chabana alcove'],
     descriptiveAnchor: 'Discover the Tokonoma principle of singular botanical curation',
@@ -855,9 +855,9 @@ export const ARTICLES: Article[] = [
       location: 'Kyoto & Paris'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Minimalist alcove displaying a solitary branch in an unglazed stoneware vase beside tatami mats',
+      url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Traditional Japanese tokonoma alcove with a solitary plum branch in wood-fired Bizen vase and raw cedar tokobashira',
       caption: 'The Tokonoma Alcove: A single winter plum blossom branch framed against lime plaster and raw cedar.',
       credit: 'Photography by Kenjiro Yoshimi',
       width: 1600,
@@ -902,7 +902,7 @@ export const ARTICLES: Article[] = [
     slug: 'curatorial-life-dieter-rams',
     path: '/philosophy/curatorial-life-dieter-rams',
     seoTitle: 'A Curatorial Life: Dieter Rams Interior Discipline | KURA',
-    metaDescription: 'Apply Dieter Rams’ ten principles of good design to home interiors. Eliminate visual noise, cultivate negative space, and invest in heirloom utility.',
+    metaDescription: 'Apply Dieter Rams’ ten design principles to home interiors. Eliminate domestic visual noise, curate negative space, and choose heirloom objects built to endure.',
     mainKeyword: 'Dieter Rams interior design discipline',
     relatedKeywords: ['Vitsoe 606 shelving system', 'less but better home curation', 'minimalist industrial archive'],
     descriptiveAnchor: 'Apply Dieter Rams’ ten principles of good design to domestic curation',
@@ -919,9 +919,9 @@ export const ARTICLES: Article[] = [
       location: 'Frankfurt & Copenhagen'
     },
     featuredImage: {
-      url: 'https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      fallbackUrl: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&fm=webp&w=1600&q=80',
-      alt: 'Minimalist study featuring Vitsoe 606 universal shelving system and an oiled beech desk',
+      url: 'https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      fallbackUrl: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&fm=webp&w=1600&q=75',
+      alt: 'Dieter Rams minimalist study featuring Vitsoe 606 universal shelving system, Braun audio archive, and solid beech desk',
       caption: 'The Frankfurt Study: Vitsoe 606 Universal Shelving System housing only essential design monographs and audio tools.',
       credit: 'Photography by Philip Sinden',
       width: 1600,

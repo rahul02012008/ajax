@@ -63,19 +63,20 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
     setLink('canonical', canonicalUrl);
 
     // OpenGraph Tags
+    const imageAlt = article
+      ? article.featuredImage.alt
+      : 'Japandi Interior Design Architecture and Warm Minimalist Interior Design';
+
     setMeta('meta[property="og:title"]', 'property', 'og:title', title);
     setMeta('meta[property="og:description"]', 'property', 'og:description', description);
     setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
     setMeta('meta[property="og:type"]', 'property', 'og:type', ogType);
+    setMeta('meta[property="og:locale"]', 'property', 'og:locale', 'en_US');
     setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
+    setMeta('meta[property="og:image:type"]', 'property', 'og:image:type', 'image/webp');
     setMeta('meta[property="og:image:width"]', 'property', 'og:image:width', '1600');
     setMeta('meta[property="og:image:height"]', 'property', 'og:image:height', '900');
-    setMeta(
-      'meta[property="og:image:alt"]',
-      'property',
-      'og:image:alt',
-      article ? article.featuredImage.alt : 'Japandi Interior Design Architecture'
-    );
+    setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', imageAlt);
     setMeta('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
 
     // Twitter Tags
@@ -83,6 +84,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
     setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
+    setMeta('meta[name="twitter:image:alt"]', 'name', 'twitter:image:alt', imageAlt);
 
     // 3. Inject Structured Data (JSON-LD) for AEO & Search Engines
     const existingSchema = document.getElementById('dynamic-jsonld-schema');
@@ -122,7 +124,15 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
               url: `${SITE_URL}/favicon.svg`,
             },
           },
-          image: [article.featuredImage.url],
+          image: {
+            '@type': 'ImageObject',
+            url: article.featuredImage.url,
+            contentUrl: article.featuredImage.url,
+            width: article.featuredImage.width || 1600,
+            height: article.featuredImage.height || 900,
+            caption: article.featuredImage.caption,
+            description: article.featuredImage.alt,
+          },
           mainEntityOfPage: {
             '@type': 'WebPage',
             '@id': canonicalUrl,

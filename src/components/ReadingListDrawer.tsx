@@ -1,6 +1,7 @@
 import React from 'react';
 import { Article } from '../data/articles';
 import { X, Trash2, ArrowRight, BookOpen } from 'lucide-react';
+import { getCompressedImageUrl } from '../utils/seoImage';
 
 interface ReadingListDrawerProps {
   isOpen: boolean;
@@ -78,11 +79,12 @@ export const ReadingListDrawer: React.FC<ReadingListDrawerProps> = ({
               >
                 <div className="w-20 h-20 bg-[#EFE9DF] rounded-xs overflow-hidden shrink-0">
                   <img
-                    src={art.featuredImage.url}
+                    src={getCompressedImageUrl(art.featuredImage.url, { width: 160, height: 160, quality: 75 })}
                     alt={art.featuredImage.alt}
                     width={80}
                     height={80}
                     loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Article } from '../data/articles';
+import { getResponsiveImageSrcSet } from '../utils/seoImage';
 import {
   ArrowLeft,
   Bookmark,
@@ -216,10 +217,14 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
           {!heroImgFailed ? (
             <img
               src={article.featuredImage.url}
+              srcSet={getResponsiveImageSrcSet(article.featuredImage.url) || undefined}
+              sizes="(max-width: 1024px) 100vw, 1024px"
               alt={article.featuredImage.alt}
               width={article.featuredImage.width || 1600}
               height={article.featuredImage.height || 900}
               loading="eager"
+              // @ts-expect-error React 19 / DOM supports fetchPriority
+              fetchPriority="high"
               decoding="async"
               referrerPolicy="no-referrer"
               onError={() => setHeroImgFailed(true)}
@@ -422,6 +427,8 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
                 <div className="aspect-[16/10] overflow-hidden">
                   <img
                     src={chapter.imageDetail.url}
+                    srcSet={getResponsiveImageSrcSet(chapter.imageDetail.url) || undefined}
+                    sizes="(max-width: 768px) 100vw, 768px"
                     alt={chapter.imageDetail.alt || chapter.imageDetail.caption}
                     width={chapter.imageDetail.width || 1200}
                     height={chapter.imageDetail.height || 800}

@@ -8,7 +8,7 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Japandi Interior Design Architecture &amp; Warm Minimalism</image:title>
       <image:caption>KURA curated architectural journal on Japandi design, wabi sabi house aesthetics, and soft minimalism.</image:caption>
     </image:image>
@@ -21,7 +21,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Modern Japanese Machiya Interior: Yakisugi &amp; Tatami Design</image:title>
       <image:caption>Kyoto Machiya Pavilion: Interplay between natural cedar posts, shoji translucency, and the quiet shadow line.</image:caption>
     </image:image>
@@ -34,7 +34,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Limewash vs Microcement Walls: Tactile Interior Finishes</image:title>
       <image:caption>Antwerp Penthouse: Hand-applied slaked lime plaster creating organic light gradation across the south-facing living pavilion.</image:caption>
     </image:image>
@@ -47,7 +47,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Hidden Storage Solutions: Flush Joinery Cabinets Guide</image:title>
       <image:caption>Canal House Transformation: Full-height walnut storage wall concealing structural columns, HVAC registers, and pantry.</image:caption>
     </image:image>
@@ -60,7 +60,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Warm Scandinavian Interior Design: Soft Hygge Minimalism</image:title>
       <image:caption>Nørrebro Residence: High ceilings, bleached solid Douglas fir planks, and diffuse northern daylight.</image:caption>
     </image:image>
@@ -73,7 +73,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Sculptural Geometry: Single-Object Spaces and Curated Voids</image:title>
       <image:caption>The Basel Pavilion: An 80-square-meter concrete gallery anchored solely by a patinated bronze daybed.</image:caption>
     </image:image>
@@ -86,7 +86,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Light as Material: Apertures, Slits, and Raking Daylight</image:title>
       <image:caption>The Solitary Shaft: A continuous ceiling slit reveals raking morning light across textured stone masonry.</image:caption>
     </image:image>
@@ -99,7 +99,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>The Monolithic Kitchen: Honed Stone Blocks and Invisible Appliances</image:title>
       <image:caption>Via Solferino Apartment: A 4.2-meter cantilevered Pietra di Cardoso stone island with invisible under-counter induction.</image:caption>
     </image:image>
@@ -112,7 +112,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>Acoustic Serenity: Slatted White Oak, Bouclé Textures, and Noise Damping</image:title>
       <image:caption>The Listening Haven: Full-height micro-perforated slatted white oak panels backed with recycled acoustic felt.</image:caption>
     </image:image>
@@ -125,7 +125,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1540518614846-7ede433c4ef4?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>The Tokonoma Principle: Biophilic Reduction and the Singularity of Nature</image:title>
       <image:caption>The Tokonoma Alcove: A single winter plum blossom branch framed against lime plaster and raw cedar.</image:caption>
     </image:image>
@@ -138,7 +138,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&amp;fit=crop&amp;fm=webp&amp;w=1600&amp;q=75</image:loc>
       <image:title>A Curatorial Life: The Dieter Rams Discipline of Intentional Domesticity</image:title>
       <image:caption>The Frankfurt Study: Vitsoe 606 Universal Shelving System housing only essential design monographs and audio tools.</image:caption>
     </image:image>
