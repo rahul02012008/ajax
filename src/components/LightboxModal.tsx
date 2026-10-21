@@ -110,6 +110,9 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           <img
             src={imageUrl}
             alt={caption}
+            width={1600}
+            height={900}
+            decoding="async"
             referrerPolicy="no-referrer"
             className="max-h-[75vh] max-w-[90vw] object-contain shadow-2xl rounded-xs select-none"
           />

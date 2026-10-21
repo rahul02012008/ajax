@@ -4,25 +4,33 @@ import { Article } from '../data/articles';
 interface SEOHeadProps {
   article?: Article | null;
   path: string;
+  isNotFound?: boolean;
 }
 
 const SITE_URL = 'https://kura-design.vercel.app';
 const SITE_NAME = 'KURA';
 
-export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
+export const SEOHead: React.FC<SEOHeadProps> = ({ article, path, isNotFound }) => {
   useEffect(() => {
     // 1. Determine Title & Meta Description based on current page
     let title = 'Japandi Interior Design Architecture & Warm Minimalism | KURA';
     let description =
       "Explore KURA's curated architectural monographs on Japandi interior design architecture, wabi sabi house aesthetics, and warm soft minimalism.";
-    let canonicalUrl = `${SITE_URL}${path === '/' ? '' : path}`;
+    // Strict self-referencing canonical URL
+    let canonicalUrl = path === '/' || path === '' ? `${SITE_URL}/` : `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
     let ogType = 'website';
     let ogImage =
-      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=80';
+      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&fm=webp&w=1600&q=75';
     let keywords =
       'Japandi interior design architecture, wabi sabi house aesthetic, soft minimalism interior, organic modern architecture, how to design a japandi living room, warm minimalist home decor ideas, wabi sabi interior design principles';
+    let robotsContent = 'index, follow, max-image-preview:large, max-snippet:-1';
 
-    if (article) {
+    if (isNotFound) {
+      title = '404: Space Not Found | KURA';
+      description =
+        'The requested architectural monograph or page cannot be found. Return to KURA Journal to explore warm minimalist architecture and curated spatial studies.';
+      robotsContent = 'noindex, follow';
+    } else if (article) {
       title = article.seoTitle || `${article.title} | KURA`;
       description = article.metaDescription || article.excerpt;
       canonicalUrl = `${SITE_URL}${article.path}`;
@@ -59,7 +67,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ article, path }) => {
     // Standard Meta Tags
     setMeta('meta[name="description"]', 'name', 'description', description);
     setMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
-    setMeta('meta[name="robots"]', 'name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1');
+    setMeta('meta[name="robots"]', 'name', 'robots', robotsContent);
+    // Strict self-referencing canonical tag on every page
     setLink('canonical', canonicalUrl);
 
     // OpenGraph Tags

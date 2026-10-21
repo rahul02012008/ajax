@@ -10,13 +10,20 @@ import { ReadingListDrawer } from './components/ReadingListDrawer';
 import { ColophonModal } from './components/ColophonModal';
 import { Footer } from './components/Footer';
 import { SEOHead } from './components/SEOHead';
+import { NotFound } from './components/NotFound';
 import { HelpCircle, ArrowRight, Compass, Sparkles, Feather } from 'lucide-react';
 
 const BOOKMARKS_STORAGE_KEY = 'kura_bookmarked_articles_v2';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
-    return window.location.pathname || '/';
+    const path = window.location.pathname || '/';
+    // 301 redirect /old-home -> /
+    if (path === '/old-home') {
+      window.history.replaceState(null, '', '/');
+      return '/';
+    }
+    return path;
   });
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -116,6 +123,10 @@ export default function App() {
     return ARTICLES.find((a) => a.path === currentPath || a.slug === currentPath.replace('/', '')) || null;
   }, [currentPath]);
 
+  // Determine if current route is a 404
+  const isHomePage = currentPath === '/' || currentPath === '';
+  const isNotFound = !isHomePage && !currentArticle;
+
   // Filter and search articles for homepage
   const filteredArticles = useMemo(() => {
     return ARTICLES.filter((article) => {
@@ -163,8 +174,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#191716] flex flex-col font-sans selection:bg-[#E8DFD5] selection:text-[#191716]">
-      {/* Dynamic SEO Head & Structured Data Manager */}
-      <SEOHead article={currentArticle} path={currentPath} />
+      {/* Dynamic SEO Head & Structured Data Manager with self-referencing canonical */}
+      <SEOHead article={currentArticle} path={currentPath} isNotFound={isNotFound} />
 
       {/* Top Bar Contract Navigation */}
       <Header
@@ -177,7 +188,7 @@ export default function App() {
         bookmarksCount={bookmarkedIds.length}
         onOpenBookmarks={() => setIsReadingListOpen(true)}
         onOpenSearch={() => {
-          if (currentArticle) {
+          if (currentArticle || isNotFound) {
             navigate('/');
           }
           const inputEl = document.querySelector('input[type="text"]') as HTMLInputElement;
@@ -188,7 +199,7 @@ export default function App() {
         onNavigateHome={() => navigate('/')}
       />
 
-      {/* Dedicated Article Page vs Homepage View */}
+      {/* Dedicated Article Page vs 404 Page vs Homepage View */}
       {currentArticle ? (
         <ArticleReader
           article={currentArticle}
@@ -198,6 +209,15 @@ export default function App() {
           isBookmarked={bookmarkedIds.includes(currentArticle.id)}
           onToggleBookmark={toggleBookmark}
           onOpenLightbox={handleOpenLightbox}
+        />
+      ) : isNotFound ? (
+        <NotFound
+          onNavigate={navigate}
+          onOpenSearch={() => {
+            navigate('/');
+            const inputEl = document.querySelector('input[type="text"]') as HTMLInputElement;
+            if (inputEl) inputEl.focus();
+          }}
         />
       ) : (
         <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
